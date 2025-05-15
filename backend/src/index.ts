@@ -1,0 +1,49 @@
+import {serve} from '@hono/node-server'
+import {Hono} from 'hono'
+import {PrismaClient} from '../generated/prisma/index.js'
+import {api} from './routes/index.js'
+import {HTTPException} from "hono/http-exception";
+import {cors} from 'hono/cors'
+import type {ErrorResponse} from "./types/index.js";
+import * as process from "node:process";
+
+const app = new Hono()
+export const prisma = new PrismaClient()
+
+app.use(cors({
+    origin: 'YOUR_FRONTEND_URL',
+    credentials: true,
+}))
+app.route('', api)
+
+app.onError((err, c) => {
+  if (err instanceof  HTTPException) {
+      return err.res ??
+        c.json<ErrorResponse>(
+            {
+                success: false,
+                error: err.message,
+                isFormError:
+                    err.cause && typeof err.cause === "object" && "form" in err.cause
+                        ? err.cause.form === true
+                        : false,
+            },
+            err.status,
+        );
+  }
+
+  return c.json<ErrorResponse>({
+      success: false,
+      error:
+        process.env.NODE_ENV === "production"
+            ? "Internal Server Error"
+            : (err.stack ?? err.message),
+  })
+})
+
+serve({
+  fetch: app.fetch,
+  port: 3000
+}, (info) => {
+  console.log(`Server is running on http://localhost:${info.port}`)
+})
