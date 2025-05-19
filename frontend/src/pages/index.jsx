@@ -1,11 +1,12 @@
-import Home from '@/components/home.jsx';
-
+import Home from "@/components/home.jsx";
+import Profiledocter from "@/components/module/profiledocter";
 const Index = () => {
-    return (
-        <>
-            <Home />
-        </>
-    )
-}
+  return (
+    <>
+      <Home />
+      <Profiledocter />
+    </>
+  );
+};
 
-export default Index
+export default Index;
