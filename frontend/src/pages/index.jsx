@@ -1,4 +1,4 @@
-import Home from '@/components/home.jsx';
+import Home from '@/components/modules/home.jsx';
 
 const Index = () => {
     return (

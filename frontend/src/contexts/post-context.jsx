@@ -6,14 +6,21 @@ const PostContext = createContext();
 export const PostProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
     
-    const createPost = (department, post_date) =>{
+    const createPost = async ({department, post_date}) =>{
         setLoading(true);
-        return newPost(department, post_date);
+        
+        let dateString;
+        if (post_date) {
+            dateString = new Date(post_date.getTime() - (post_date.getTimezoneOffset() * 60000 ))
+                .toISOString()
+                .split("T")[0];
+        }
+        return await newPost(department, dateString);
     }
 
     return (
         <PostContext.Provider value={{
-            setLoading,
+            loading,
             createPost,
         }}>
             {children}

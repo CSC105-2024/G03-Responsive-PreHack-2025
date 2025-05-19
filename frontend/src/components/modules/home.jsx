@@ -1,12 +1,12 @@
 import { ArrowUpRight, ChevronRight, ChevronUp } from "lucide-react";
 import React from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils.js";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge.jsx";
+import { Button } from "@/components/ui/button.jsx";
 
-const Home = () => {
+const HomeMo = () => {
     return (
         <section className="bg-background">
             <div className="relative container flex flex-col items-center">
@@ -98,7 +98,7 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default HomeMo;
 
 const DottedDiv = ({ children, className}) => (
     <div className={cn("relative", className)}>

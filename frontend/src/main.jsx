@@ -7,11 +7,20 @@ import {
 } from 'react-router-dom'
 import routes from '~react-pages'
 import Layout from '@/components/layouts/main-layout.jsx'
+import {useLocation} from "react-router";
 
 function App() {
+    const route = useRoutes(routes)
+    const location = useLocation().pathname;
+    const path = [
+        '/system/log-in',
+    ]
+    const layout = !path.includes(location)
+        ? <Layout>{route}</Layout>
+        : route
     return (
         <Suspense fallback={<p>Loading...</p>}>
-            <Layout>{useRoutes(routes)}</Layout>
+            {layout}
         </Suspense>
     )
 }

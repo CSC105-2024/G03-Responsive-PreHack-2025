@@ -1,10 +1,10 @@
-import Dashboard from "@/components/modules/dashboard.jsx";
+import { DashboardMo } from '@/components/modules';
 
-const DashboardMo = () => {
+const Dashboard = () => {
     return (
         <>
-            <Dashboard />
+            <DashboardMo />
         </>
     )
 }
-export default DashboardMo;
+export default Dashboard;
