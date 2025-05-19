@@ -14,7 +14,7 @@ const DashboardMo = () => {
                        <CreateBook />
                     </PostProvider>
                 </div>
-                <ListBook />
+                <ListBook Available={true} />
             </div>
         </section>
     )
