@@ -1,12 +1,10 @@
-import { FindDoctor } from "@/components/card";
-import { ListBook } from "@/components/list";
+import Dashboard from "@/components/modules/dashboard.jsx";
 
-const Dashboard = () => {
+const DashboardMo = () => {
     return (
         <>
-            <FindDoctor />
-            <ListBook />
+            <Dashboard />
         </>
     )
 }
-export default Dashboard;
+export default DashboardMo;

@@ -4,8 +4,10 @@ import { DetailBook } from "@/components/card"
 
 const ListBook = () => {
     return (
-        <ScrollArea className="h-72 min-2xl: rounded-md">
+        <ScrollArea className="h-80 w-full rounded-md">
             <div className="p-4 space-y-6">
+                <DetailBook />
+                <DetailBook />
                 <DetailBook />
                 <DetailBook />
                 <DetailBook />

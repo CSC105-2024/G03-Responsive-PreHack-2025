@@ -4,12 +4,16 @@ import { newPost } from '../services/post.service';
 const PostContext = createContext();
 
 export const PostProvider = ({ children }) => {
-    function createPost(department, post_date) {
+    const [loading, setLoading] = useState(false);
+    
+    const createPost = (department, post_date) =>{
+        setLoading(true);
         return newPost(department, post_date);
     }
 
     return (
         <PostContext.Provider value={{
+            setLoading,
             createPost,
         }}>
             {children}

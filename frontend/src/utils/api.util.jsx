@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import axios from "axios";
 
 export const baseApi = axios.create({
-    baseURL: process.env.REACT_APP_API_BASE_URL,
+    baseURL: "http://localhost:3000/api/v1",
     withCredentials: true,
 
 })
@@ -30,9 +30,9 @@ baseApi.interceptors.response.use(
         }
 
         if (error.response.status === 401) {
-            console.log('Login error', error);
+            console.log('UnAuthorize', error);
         }
-
+        
         if (error.response.status === 404) {
             console.log('Page not Found', error);
         }
@@ -40,7 +40,7 @@ baseApi.interceptors.response.use(
         if (error.response.status === 500) {
             console.log('Internal Server Error', error);
         }
-        return Promise.reject(error);
+        return Promise.reject(response.error);
     }
 )
 
