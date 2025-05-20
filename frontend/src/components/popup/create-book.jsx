@@ -32,7 +32,7 @@ const CreateBook = () => {
             post_date: date,
         })
     }
-    console.log(date)
+
     useEffect(() => {
         if (loading) {
             setOpen(true)
