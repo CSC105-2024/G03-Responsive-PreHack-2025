@@ -16,7 +16,9 @@ const RegisterPage = () => {
         {/* Branding */}
         <div className="flex justify-center gap-2 md:justify-start">
           <Link to="/" className="flex items-center gap-2 text-2xl font-bold text-black">
-            <span className="text-black font-bold">DocOnTime</span>
+          <span>
+          <span className="text-blue-600">D</span>ocOnTime
+          </span>
           </Link>
         </div>
 
