@@ -13,7 +13,8 @@ function App() {
     const route = useRoutes(routes)
     const location = useLocation().pathname;
     const path = [
-        '/system/log-in',
+        '/system/sign-in',
+        '/system/sign-up',
     ]
     const layout = !path.includes(location)
         ? <Layout>{route}</Layout>

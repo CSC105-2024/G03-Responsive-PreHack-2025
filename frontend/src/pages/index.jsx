@@ -3,9 +3,8 @@ import Home from '@/components/modules/home.jsx';
 const Index = () => {
     return (
         <>
-            <Home />
+          <Home />
         </>
     )
 }
-
-export default Index
+export default Index;
