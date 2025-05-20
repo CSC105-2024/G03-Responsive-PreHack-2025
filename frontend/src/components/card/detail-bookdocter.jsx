@@ -21,23 +21,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { CircleUserRound } from "lucide-react";
-import { Button } from "@/components/ui/button.jsx";
 import { Badge } from "@/components/ui/badge.jsx";
+import { Button } from "@/components/ui/button";
 import { EllipsisVertical } from "lucide-react";
-import { useState } from "react";
-const DetailBook = ({ Available }) => {
-  const [isAvailable, setIsAvailable] = useState(Available);
-
-  const handleBooking = () => {
-    setIsAvailable(!isAvailable);
-  };
+const DetailBookDocter = () => {
+  const isAvailable = true;
   return (
     <Card>
       <CardHeader>
         <CardDescription>12.00 - 13.00 AM</CardDescription>
-        <div className="flex justify-between">
-          <CardTitle className="text-2xl">Gastroenterologists</CardTitle>
-          {!isAvailable && (
+
+        <CardTitle className="text-2xl flex justify-between">
+          Gastroenterologists
+          {isAvailable && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon">
@@ -46,13 +42,11 @@ const DetailBook = ({ Available }) => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={handleBooking}>
-                  Delete
-                </DropdownMenuItem>
+                <DropdownMenuItem>Delete</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )}
-        </div>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <CardDescription>
@@ -64,7 +58,7 @@ const DetailBook = ({ Available }) => {
       </CardContent>
       <CardFooter className="flex justify-end">
         {isAvailable ? (
-          <Button onClick={handleBooking}>Book</Button>
+          <Badge className="bg-green-500 hover:bg-green-600">Available</Badge>
         ) : (
           <Badge className="bg-orange-400 hover:bg-orange-500">Booked</Badge>
         )}
@@ -72,4 +66,4 @@ const DetailBook = ({ Available }) => {
     </Card>
   );
 };
-export default DetailBook;
+export default DetailBookDocter;
