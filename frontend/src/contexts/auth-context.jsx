@@ -1,13 +1,29 @@
-import React, {createContext, useContext, useState} from 'react';
-import { signUp, signIn } from '../services/auth.service';
+import React, {createContext, useContext, useEffect, useState} from 'react';
+import { signUp, signIn, fetch } from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const  [user, setUser] = useState(null);
     const  [error, setError] = useState("");
-    const navigate = useNavigate();
+    
+    useEffect(() => {
+        const checkStatus = async () => {
+            try {
+                const response = await fetch();
+                if (response.success) {
+                    setUser(response.data.data);
+                }
+            } catch (error) {
+                setUser(null);
+            } finally {
+                setLoading(false);
+            }
+        }
+        checkStatus();
+    }, [])
 
     const signUpUser = async ({
         username,
@@ -20,6 +36,7 @@ export const AuthProvider = ({ children }) => {
             setLoading(true);
             const response = await signUp({username, surname, email, password, role});
             setUser(response);
+            return response;
         } finally {
             setLoading(false);
         }
@@ -51,6 +68,7 @@ export const AuthProvider = ({ children }) => {
             error,
             signUpUser,
             signInUser,
+            isAuth: !!user,
         }}>
             {children}
         </AuthContext.Provider>

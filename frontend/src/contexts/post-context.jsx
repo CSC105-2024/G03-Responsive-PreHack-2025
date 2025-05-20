@@ -5,22 +5,27 @@ const PostContext = createContext();
 
 export const PostProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
+    const [post, setPost] = useState(null);
+    const [error, setError] = useState("");
     
     const createPost = async ({department, post_date}) =>{
-        setLoading(true);
-        
-        let dateString;
-        if (post_date) {
-            dateString = new Date(post_date.getTime() - (post_date.getTimezoneOffset() * 60000 ))
-                .toISOString()
-                .split("T")[0];
+        try {
+            setLoading(true);
+            const  response = await newPost({department, post_date});
+            setPost(response);
+            return response;
+        } catch (error) {
+            setError(error.response.data.message);
+        } finally {
+            setLoading(false);
         }
-        return await newPost(department, dateString);
     }
 
     return (
         <PostContext.Provider value={{
             loading,
+            error,
+            post,
             createPost,
         }}>
             {children}

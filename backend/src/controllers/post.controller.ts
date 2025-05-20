@@ -2,13 +2,15 @@
 import {AbstractController} from "../core/http/index.js";
 import type {Context} from "hono";
 import {PostModel} from "../models/index.js";
+import {HTTPException} from "hono/http-exception";
 
 class PostCrud extends AbstractController{
     async create(c: Context) {
-        const role = c.get('role');
+        const role = c.get('role'); 
+        const id = c.get('userId');
         const body = await c.req.json()
 
-        const post = await PostModel.create(role, body)
+        const post = await PostModel.create(role, body, id)
         return this.data(c, post,200, "Post created")
     }
 
@@ -16,6 +18,10 @@ class PostCrud extends AbstractController{
         const {sym, date} = c.req.query();
         const post = await PostModel.findByQuery(sym, date);
 
+        return this.data(c, post,200, "Post found")
+    }
+    async findMany(c: Context) {
+        const post = await PostModel.findMany();
         return this.data(c, post,200, "Post found")
     }
 }

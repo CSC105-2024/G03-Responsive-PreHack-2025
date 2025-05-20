@@ -23,6 +23,7 @@ api.post('/login', (c) => AuthController.login(c))
 
 //post
 api.get('/posts', (c) => PostController.findByQuery(c))
+api.get('/posts/all', (c) => PostController.findMany(c))
 api.post('/posts', authMiddleware, (c) => PostController.create(c))
 
 export { api }

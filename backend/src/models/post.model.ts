@@ -3,7 +3,7 @@ import {HTTPException} from "hono/http-exception";
 import {type Post, Roles} from "../types/index.js";
 
 class PostModelLo {
-    async create (role: Roles, data: Post) {
+    async create (role: Roles, data: Post ,id: number) {
         if (role !== Roles.DOCTOR) {
             throw new HTTPException(403,{
                 message: `This ${role} doesn't have permission to create`
@@ -21,6 +21,11 @@ class PostModelLo {
             data:{
                 department: data.department,
                 post_date: parsedDate,
+                users: {
+                    connect :{
+                        id: id
+                    }
+                }
             }
         })
     }
@@ -43,6 +48,21 @@ class PostModelLo {
 
         return  prisma.posts.findMany({ where });
     }
+    
+    async findMany () {
+        const post =  await prisma.confirm.findMany({
+            where: {confirm: false},
+            include: {
+                post: true,
+            }
+        });
+        if (post.length === 0) {
+            throw new HTTPException(404,{
+                message: 'No post found',
+            })
+        }
+        return post;
+    }   
 }
 
 const PostModel = new PostModelLo();

@@ -46,7 +46,8 @@ baseApi.interceptors.response.use(
 )
 
 export const get = async (url, config = {}) => {
-    return await baseApi.get(url, config);
+    const response = await axios.get(url, config);
+    return response.data;
 };
 
 export const post = async (url, data, config = {}) => {
@@ -55,9 +56,11 @@ export const post = async (url, data, config = {}) => {
 };
 
 export const patch = async (url, data, config = {}) => {
-    return await baseApi.patch(url, data, config);
+    const response = await baseApi.patch(url, data, config);
+    return response.data;
 };
 
 export const del = async (url, config = {}) => {
-    return await baseApi.delete(url, config);
+    const  response = await baseApi.delete(url, config);
+    return response.data;
 };
