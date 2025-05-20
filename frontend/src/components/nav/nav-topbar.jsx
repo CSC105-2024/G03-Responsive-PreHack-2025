@@ -33,15 +33,15 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div className="container mx-auto md:text-sm">
-        <div className="flex items-center justify-between">
+      <div className="w-full max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between px-5  gap-35">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
               to="/"
-              className="text-4xl font-bold"
+              className="lg:text-4xl text-2xl"
               onClick={() => setActive("/")}
             >
-              <span className="text-cyan-500">D</span>
+              <span className="text-cyan-500 font-bold">D</span>
               <span className="">ocOnTime</span>
             </Link>
           </motion.div>
@@ -52,13 +52,13 @@ const Navbar = () => {
                 <Button
                   variant="secondary"
                   size="icon"
-                  className="hidden rounded-full md:flex"
+                  className="rounded-full "
                 >
                   <CircleUser className="h-5 w-5" />
                   <span className="sr-only">Toggle user menu</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="hidden md:block">
+              <DropdownMenuContent align="end" className="">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <Link to={`user/auth/dashboard`}>
@@ -72,7 +72,7 @@ const Navbar = () => {
             </DropdownMenu>
           ) : (
             <Button
-              className={`hidden py-2 px-3 md:flex dark:text-white`}
+              className={` py-2 px-3 dark:text-white`}
               onClick={() => navigate("/system/log-in")}
             >
               Sign In

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer
-      className={`footer relative z-0 footer-horizontal footer-center bg-sky-600 text-white p-10 mt-16 md:mt-10`}
+      className={`footer relative z-0 footer-horizontal footer-center bg-sky-500 text-white p-10 mt-16 md:mt-10 `}
     >
       <div className="w-full flex flex-col items-center justify-center text-center">
         <nav className="mb-2">
@@ -14,7 +14,7 @@ const Footer = () => {
           </Link>
         </nav>
         <aside className="text-center">
-          <p>
+          <p className="mb-10">
             Copyright © {new Date().getFullYear()} - All right reserved by
             DocOnTime
           </p>
