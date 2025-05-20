@@ -144,7 +144,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\pun\\Desktop\\G03-Responsive-PreHack-2025\\backend\\generated\\prisma",
+      "value": "/Users/tag/Documents/DocOnTime/backend/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -153,12 +153,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\pun\\Desktop\\G03-Responsive-PreHack-2025\\backend\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/tag/Documents/DocOnTime/backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -172,6 +172,7 @@ const config = {
     "db"
   ],
   "activeProvider": "sqlite",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
