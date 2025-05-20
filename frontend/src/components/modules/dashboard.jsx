@@ -5,18 +5,18 @@ import { PostProvider } from "@/contexts/post-context.jsx";
 
 const DashboardMo = () => {
     return (
-        <section>
-            <FindDoctor />
-            <div className="mt-16">
-                <div className="flex justify-between items-center">
-                    <h1>Available Doctors </h1>
-                    <PostProvider>
-                       <CreateBook />
-                    </PostProvider>
+        <PostProvider>
+            <section>
+                <FindDoctor />
+                <div className="mt-16">
+                    <div className="flex justify-between items-center">
+                        <h1>Available Doctors </h1>
+                        <CreateBook />
+                    </div>
+                    <ListBook />
                 </div>
-                <ListBook />
-            </div>
-        </section>
+            </section>
+        </PostProvider>
     )
 }
 
