@@ -131,18 +131,13 @@ exports.Prisma.PostsScalarFieldEnum = {
   id: 'id',
   department: 'department',
   post_date: 'post_date',
-  created_at: 'created_at'
-};
-
-exports.Prisma.User_postsScalarFieldEnum = {
-  user_id: 'user_id',
-  post_id: 'post_id'
+  created_at: 'created_at',
+  doctorId: 'doctorId'
 };
 
 exports.Prisma.ConfirmScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  post_id: 'post_id',
+  userId: 'userId',
+  postId: 'postId',
   confirm: 'confirm'
 };
 
@@ -158,7 +153,6 @@ exports.Roles = exports.$Enums.Roles = {
 exports.Prisma.ModelName = {
   Users: 'Users',
   Posts: 'Posts',
-  User_posts: 'User_posts',
   Confirm: 'Confirm'
 };
 

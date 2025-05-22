@@ -9,18 +9,18 @@ import {
 import { CircleUserRound } from 'lucide-react';
 import { Button } from "@/components/ui/button.jsx";
 
-const DetailBook = () => {
+const DetailBook = ({doctor, sym, date}) => {
     return (
         <Card>
             <CardHeader>
-                <CardDescription>12.00 - 13.00 AM</CardDescription>
-                <CardTitle className="text-2xl">Gastroenterologists</CardTitle>
+                <CardDescription>{date}</CardDescription>
+                <CardTitle className="text-2xl">{sym}</CardTitle>
             </CardHeader>
             <CardContent>
                 <CardDescription>
                     <div className="flex items-center space-x-2">
                         <CircleUserRound />
-                        <p>Dr.SomeThing</p>
+                        <p>{doctor}</p>
                     </div>
                 </CardDescription>
             </CardContent>

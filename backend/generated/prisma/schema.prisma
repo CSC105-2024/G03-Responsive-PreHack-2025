@@ -25,9 +25,8 @@ model Users {
   created_at DateTime @default(now())
   role       Roles
 
-  posts      Posts[]      @relation("UserPosts")
-  confirms   Confirm[]
-  User_posts User_posts[]
+  posts    Posts[]   @relation("DoctorPosts")
+  confirms Confirm[]
 }
 
 model Posts {
@@ -36,27 +35,19 @@ model Posts {
   post_date  DateTime
   created_at DateTime @default(now())
 
-  users      Users[]      @relation("UserPosts")
-  confirms   Confirm[]
-  User_posts User_posts[]
-}
+  doctorId Int
+  doctor   Users @relation("DoctorPosts", fields: [doctorId], references: [id])
 
-model User_posts {
-  user_id Int
-  post_id Int
-
-  user Users @relation(fields: [user_id], references: [id])
-  post Posts @relation(fields: [post_id], references: [id])
-
-  @@id([user_id, post_id])
+  confirms Confirm[]
 }
 
 model Confirm {
-  id      Int     @id @default(autoincrement())
-  user_id Int
-  post_id Int
+  userId  Int
+  postId  Int
   confirm Boolean @default(false)
 
-  user Users @relation(fields: [user_id], references: [id])
-  post Posts @relation(fields: [post_id], references: [id])
+  user Users @relation(fields: [userId], references: [id])
+  post Posts @relation(fields: [postId], references: [id])
+
+  @@id([userId, postId])
 }

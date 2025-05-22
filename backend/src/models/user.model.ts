@@ -56,7 +56,6 @@ class UserModelLo {
             },
         });
     }
-
 }
 
 const UserModel = new UserModelLo();

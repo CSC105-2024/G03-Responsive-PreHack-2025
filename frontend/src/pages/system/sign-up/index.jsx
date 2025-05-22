@@ -1,6 +1,6 @@
-const LogOut = () => {
+const SignUp = () => {
     return (
         <div>LogOut Page</div>
     )
 }
-export default LogOut;
+export default SignUp;

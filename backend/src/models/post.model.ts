@@ -16,12 +16,12 @@ class PostModelLo {
                 message: 'Invalid date [YYYY-MM-DD]',
             });
         }
-
+        
         return prisma.posts.create({
             data:{
                 department: data.department,
                 post_date: parsedDate,
-                users: {
+                doctor: {
                     connect :{
                         id: id
                     }
@@ -50,17 +50,21 @@ class PostModelLo {
     }
     
     async findMany () {
-        const post =  await prisma.confirm.findMany({
-            where: {confirm: false},
+        const post =  await prisma.posts.findMany({
+            where: {
+                confirms: {
+                    none: {}
+                }
+            },
             include: {
-                post: true,
+                doctor: true
             }
         });
-        if (post.length === 0) {
-            throw new HTTPException(404,{
-                message: 'No post found',
-            })
-        }
+        // if (post.length === 0) {
+        //     throw new HTTPException(404,{
+        //         message: 'No post found',
+        //     })
+        // }
         return post;
     }   
 }

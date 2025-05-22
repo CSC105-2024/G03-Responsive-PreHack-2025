@@ -8,7 +8,6 @@ import {
     validateMiddleware,
     authMiddleware,
 } from "../middlewares/index.js";
-import {PostModel} from "../models/index.js";
 
 const api = new Hono()
     .basePath('/api/v1');
@@ -20,6 +19,7 @@ api.post('/users', (c) => UserController.create(c))
 
 //auth
 api.post('/login', (c) => AuthController.login(c))
+api.post('/logout', authMiddleware, (c) => AuthController.logout(c))
 
 //post
 api.get('/posts', (c) => PostController.findByQuery(c))

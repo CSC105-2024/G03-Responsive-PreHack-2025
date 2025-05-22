@@ -1,14 +1,14 @@
-import Header from "@/components/nav/app-header";
+import Navbar from "@/components/nav/nav-topbar.jsx";
 import Footer from "@/components/footer/Footer";
 
 const Layout = ({ children }) => {
   return (
       <div className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow max-w-7xl pt-40 mx-auto">
+        <Navbar />
+        <main className="flex-grow max-w-7xl mx-auto md:py-32 py-16">
           {children}
         </main>
-        <Footer />
+        {/*<Footer />*/}
       </div>
   );
 };

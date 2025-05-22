@@ -1,5 +1,10 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
-import { signUp, signIn, fetch } from '../services/auth.service';
+import {
+    createContext,
+    useContext,
+    useEffect,
+    useState,
+} from 'react';
+import {signUp, signIn, fetch, signOut} from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
 const AuthContext = createContext();
 
@@ -10,11 +15,12 @@ export const AuthProvider = ({ children }) => {
     const  [error, setError] = useState("");
     
     useEffect(() => {
+        setLoading(true);
         const checkStatus = async () => {
             try {
                 const response = await fetch();
                 if (response.success) {
-                    setUser(response.data.data);
+                    setUser(response?.data?.data);
                 }
             } catch (error) {
                 setUser(null);
@@ -35,7 +41,7 @@ export const AuthProvider = ({ children }) => {
         try {
             setLoading(true);
             const response = await signUp({username, surname, email, password, role});
-            setUser(response);
+            setUser(response?.data?.data);
             return response;
         } finally {
             setLoading(false);
@@ -48,9 +54,9 @@ export const AuthProvider = ({ children }) => {
         try {
             setLoading(true);
             const response = await signIn({username, password})
+            setUser(response);
 
             if (response.success) {
-                setUser(response);
                 navigate('/');
             }
             return response;
@@ -60,7 +66,18 @@ export const AuthProvider = ({ children }) => {
             setLoading(false);
         }
     }
-
+    
+    const signOutUser = async () => {
+        try {
+            setLoading(true);
+            await signOut();
+            setUser(null)
+        } catch (error) {
+            setError(error.response.data.error);
+        } finally {
+            setLoading(false);
+        }
+    }
     return (
         <AuthContext.Provider value={{
             loading,
@@ -68,6 +85,7 @@ export const AuthProvider = ({ children }) => {
             error,
             signUpUser,
             signInUser,
+            signOutUser,
             isAuth: !!user,
         }}>
             {children}

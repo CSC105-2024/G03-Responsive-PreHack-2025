@@ -12,6 +12,7 @@ baseApi.interceptors.request.use(
         const token = Cookies.get("accessToken")
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
+            // Cookies.remove('accessToken');
         }
         console.log(token)
         return config
@@ -23,7 +24,6 @@ baseApi.interceptors.request.use(
 
 baseApi.interceptors.response.use(
     (response) => {
-        console.log(response);
         return response;
     },
     (error) => {
@@ -46,7 +46,7 @@ baseApi.interceptors.response.use(
 )
 
 export const get = async (url, config = {}) => {
-    const response = await axios.get(url, config);
+    const response = await baseApi.get(url, config);
     return response.data;
 };
 
