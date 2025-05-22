@@ -15,7 +15,7 @@ import {useAuth} from "@/contexts/auth-context.jsx";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { isAuth, user, signOutUser } = useAuth();
+  const { isAuth, user, signOutUser, loading } = useAuth();
   
   const handleLogout = async () => {
     await signOutUser()
@@ -37,7 +37,7 @@ const Navbar = () => {
         </Link>
       </motion.div>
 
-      {isAuth ? (
+      {!loading && isAuth ? (
           <div className="flex items-center space-x-1">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -63,7 +63,7 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
             <Separator orientation="vertical" />
-            <span className="text-sm">{user[0]?.username}</span>
+            <span className="text-sm">{user[0].username}</span>
           </div>
       ) : (
           <Button

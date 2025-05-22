@@ -1,3 +1,7 @@
-import LoginForm from "@/components/from/login-form.jsx";
+import LogInForm from "@/components/from/logIn-form.jsx";
+import SignUpForm from "@/components/from/signUp-from.jsx";
 
-export { LoginForm };
+export { 
+    LogInForm,
+    SignUpForm,
+};

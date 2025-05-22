@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
     const  [error, setError] = useState("");
     
     useEffect(() => {
-        setLoading(true);
         const checkStatus = async () => {
             try {
                 const response = await fetch();
@@ -29,7 +28,7 @@ export const AuthProvider = ({ children }) => {
             }
         }
         checkStatus();
-    }, [])
+    }, [user])
 
     const signUpUser = async ({
         username,
@@ -42,7 +41,7 @@ export const AuthProvider = ({ children }) => {
             setLoading(true);
             const response = await signUp({username, surname, email, password, role});
             setUser(response?.data?.data);
-            return response;
+            return response?.data?.data;
         } finally {
             setLoading(false);
         }
@@ -54,12 +53,12 @@ export const AuthProvider = ({ children }) => {
         try {
             setLoading(true);
             const response = await signIn({username, password})
-            setUser(response);
-
+            
             if (response.success) {
+                setUser(response?.data?.data);
                 navigate('/');
             }
-            return response;
+            return response?.data?.data;
         } catch(error) {
             setError(error.response.data.error);
         } finally {

@@ -7,7 +7,7 @@ import { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context.jsx";
 
-const LoginForm = () => {
+const LogInForm = () => {
     const { signInUser, error } = useAuth();
     const {
         register,
@@ -105,7 +105,7 @@ const LoginForm = () => {
                 Don&apos;t have an account?{" "}
                 <span
                     className="text-purple-700 underline underline-offset-4"
-                    onClick={() => navigate("/user/unauth/register")}
+                    onClick={() => navigate("/system/sign-up")}
                 >
           Sign up
         </span>
@@ -114,4 +114,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default LogInForm;
