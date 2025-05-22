@@ -8,13 +8,13 @@ import {
 import routes from '~react-pages'
 import Layout from '@/components/layouts/main-layout.jsx'
 import {useLocation} from "react-router";
-import { AuthProvider } from '@/contexts/auth-context.jsx'
 
 function App() {
     const route = useRoutes(routes)
     const location = useLocation().pathname;
     const path = [
         '/system/sign-in',
+        '/system/sign-up',
     ]
     const layout = !path.includes(location)
         ? <Layout>{route}</Layout>
@@ -30,9 +30,7 @@ const app = createRoot(document.getElementById('root'))
 app.render(
     <StrictMode>
         <BrowserRouter>
-            <AuthProvider>
-                <App />
-            </AuthProvider>
+            <App />
         </BrowserRouter>
     </StrictMode>
 )
