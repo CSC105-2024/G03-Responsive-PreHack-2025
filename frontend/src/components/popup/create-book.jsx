@@ -33,8 +33,13 @@ const CreateBook = () => {
   const [openD, setOpenD] = useState(false);
 
   const handleSave = async () => {
+    const timeSlot = time.split("-");
+    const start = timeSlot[0];
+    const end = timeSlot[1];
+    
     await createPost({
-      department: time,
+      start_time: start,
+      end_time: end,
       post_date: date,
     });
     if (loading) setOpenD(true);
@@ -68,10 +73,10 @@ const CreateBook = () => {
                 <SelectValue placeholder="Select time" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="8:00 - 10:00">8:00 - 10:00</SelectItem>
-                <SelectItem value="10:00 - 12:00">10:00 - 12:00</SelectItem>
-                <SelectItem value="13:00 - 15:00">13:00 - 15:00</SelectItem>
-                <SelectItem value="15:00 - 17:00">15:00 - 17:00</SelectItem>
+                <SelectItem value="8:00-10:00">8:00 - 10:00</SelectItem>
+                <SelectItem value="10:00-12:00">10:00 - 12:00</SelectItem>
+                <SelectItem value="13:00-15:00">13:00 - 15:00</SelectItem>
+                <SelectItem value="15:00-17:00">15:00 - 17:00</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -98,7 +103,7 @@ const CreateBook = () => {
                   selected={date}
                   onSelect={(selectedDate) => {
                     setDate(selectedDate);
-                    setOpen(false);
+                    setOpenC(false);
                   }}
                   disabled={(date) => date < new Date("1900-01-01")}
                   initialFocus

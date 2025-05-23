@@ -20,7 +20,7 @@ function App() {
         ? <Layout>{route}</Layout>
         : route
     return (
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense>
             {layout}
         </Suspense>
     )

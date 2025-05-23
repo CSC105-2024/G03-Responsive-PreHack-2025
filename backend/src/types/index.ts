@@ -5,6 +5,7 @@ type User = {
     id: number,
     username: string,
     surname: string,
+    department: string,
     email: string,
     password: string,
     role: Roles,
@@ -12,7 +13,8 @@ type User = {
 
 type Post = {
     id: number,
-    department: string,
+    start_time: string,
+    end_time: string,
     post_date: Date,
 }
 

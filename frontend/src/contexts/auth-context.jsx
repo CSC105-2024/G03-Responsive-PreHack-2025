@@ -11,24 +11,25 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const  [user, setUser] = useState(null);
-    const  [error, setError] = useState("");
-    
-    useEffect(() => {
-        const checkStatus = async () => {
-            try {
-                const response = await fetch();
-                if (response.success) {
-                    setUser(response?.data?.data);
-                }
-            } catch (error) {
-                setUser(null);
-            } finally {
+    const [user, setUser] = useState(null);
+    const [error, setError] = useState("");
+
+    const checkStatus = async () => {
+        try {
+            const response = await fetch();
+            if (response.success) {
+                setUser(response?.data?.data);
                 setLoading(false);
             }
-        }
-        checkStatus();
-    }, [user])
+        } catch (error) {
+            setError(error.response.error);
+        } 
+    }
+    
+    useEffect(() => {
+        setLoading(true)
+        checkStatus().finally(() => setLoading(false));
+    }, [])
 
     const signUpUser = async ({
         username,
@@ -37,8 +38,8 @@ export const AuthProvider = ({ children }) => {
         password,
         role,
 }) =>{
+        setLoading(true);
         try {
-            setLoading(true);
             const response = await signUp({username, surname, email, password, role});
             setUser(response?.data?.data);
             return response?.data?.data;
@@ -50,12 +51,15 @@ export const AuthProvider = ({ children }) => {
         username,
         password,
     }) => {
+        setLoading(true);
         try {
-            setLoading(true);
             const response = await signIn({username, password})
-            
             if (response.success) {
-                setUser(response?.data?.data);
+                const fetchResponse = await fetch()
+                
+                if (fetchResponse.success) {
+                    setUser(fetchResponse?.data?.data);
+                }
                 navigate('/');
             }
             return response?.data?.data;
@@ -67,8 +71,8 @@ export const AuthProvider = ({ children }) => {
     }
     
     const signOutUser = async () => {
+        setLoading(true);
         try {
-            setLoading(true);
             await signOut();
             setUser(null)
         } catch (error) {

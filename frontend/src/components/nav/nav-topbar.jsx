@@ -21,7 +21,7 @@ const Navbar = () => {
     await signOutUser()
     navigate("/");
   };
-  
+  console.log(isAuth)
   return (
     <nav 
         className="fixed w-full top-0 z-16 backdrop-blur-lg md:py-3 flex items-center justify-between px-16 py-3 bg-white/30"
@@ -30,7 +30,7 @@ const Navbar = () => {
         <Link
             to="/"
             className="text-xl"
-            onClick={() => setActive("/")}
+            onClick={() => navigate("/")}
         >
           <span className="text-cyan-500 font-bold">D</span>
           <span>ocOnTime</span>
@@ -62,12 +62,12 @@ const Navbar = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <span className="text-sm">{user?.[0]?.username}</span>
             <Separator orientation="vertical" />
-            <span className="text-sm">{user[0].username}</span>
           </div>
       ) : (
           <Button
-              className={` py-2 px-3 dark:text-white`}
+              className="py-2 px-3 dark:text-white"
               onClick={() => navigate("/system/sign-in")}
           >
             Sign In

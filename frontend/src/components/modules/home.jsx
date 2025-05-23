@@ -1,12 +1,13 @@
 import { ArrowUpRight, ChevronRight, ChevronUp } from "lucide-react";
-import React from "react";
-
 import { cn } from "@/lib/utils.js";
-
 import { Badge } from "@/components/ui/badge.jsx";
 import { Button } from "@/components/ui/button.jsx";
+import { useAuth } from "@/contexts/auth-context.jsx";
+import { useNavigate } from "react-router-dom"
 
 const HomeMo = () => {
+    const { isAuth } = useAuth();
+    const navigate = useNavigate();
     return (
         <section className="bg-background">
             <div className="relative container flex flex-col items-center">
@@ -14,15 +15,6 @@ const HomeMo = () => {
                     <div className="grid lg:grid-cols-2">
                         {/* Left Content */}
                         <div className="flex w-full flex-col gap-8 px-10 py-20 md:px-14">
-                            <Badge
-                                variant="outline"
-                                className="flex w-fit cursor-pointer items-center gap-4 rounded-full px-6 py-2 transition-all ease-in-out hover:gap-6"
-                            >
-                <span className="text-sm font-medium tracking-tight text-muted-foreground">
-                  Copy paste Blocks for your app
-                </span>
-                                <ChevronRight className="!size-4" />
-                            </Badge>
                             <h1 className="text-5xl font-semibold tracking-tighter md:text-7xl">
                                 The Blocks Built
                                 <br />
@@ -36,14 +28,17 @@ const HomeMo = () => {
                                 their project.
                             </p>
                             <div className="flex w-full gap-2">
-                                <Button className="text-md h-12 w-fit rounded-full bg-primary px-10 text-primary-foreground">
-                                    Get Started
-                                </Button>
-                                <Button
-                                    variant="outline"
-                                    className="text-md h-12 w-12 rounded-full transition-all ease-in-out hover:rotate-45"
+                                <Button 
+                                    className="text-md h-12 w-fit rounded-full px-10"
+                                    onClick={() => {
+                                        if (isAuth) {
+                                            navigate("/dashboard")
+                                        } else {
+                                            navigate("/system/sign-in")
+                                        }
+                                    }}
                                 >
-                                    <ArrowUpRight />
+                                    Get Started
                                 </Button>
                             </div>
                         </div>

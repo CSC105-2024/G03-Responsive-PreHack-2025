@@ -16,10 +16,22 @@ class PostModelLo {
                 message: 'Invalid date [YYYY-MM-DD]',
             });
         }
+
+        function isTimeFormat(time: string): boolean {
+            const regex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+            return regex.test(time);
+        }
+        
+        if (!isTimeFormat(data.start_time) || !isTimeFormat(data.end_time)) {
+            throw new HTTPException(400, {
+                message: 'Invalid start_time or end end_time [HH:MM]',
+            });
+        }
         
         return prisma.posts.create({
             data:{
-                department: data.department,
+                start_time: data.start_time,
+                end_time: data.end_time,
                 post_date: parsedDate,
                 doctor: {
                     connect :{

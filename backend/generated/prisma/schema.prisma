@@ -20,6 +20,7 @@ model Users {
   id         Int      @id @default(autoincrement())
   username   String
   surname    String
+  department String
   email      String   @unique
   password   String
   created_at DateTime @default(now())
@@ -31,7 +32,8 @@ model Users {
 
 model Posts {
   id         Int      @id @default(autoincrement())
-  department String
+  start_time String
+  end_time   String
   post_date  DateTime
   created_at DateTime @default(now())
 

@@ -1162,6 +1162,7 @@ export namespace Prisma {
     id: number | null
     username: string | null
     surname: string | null
+    department: string | null
     email: string | null
     password: string | null
     created_at: Date | null
@@ -1172,6 +1173,7 @@ export namespace Prisma {
     id: number | null
     username: string | null
     surname: string | null
+    department: string | null
     email: string | null
     password: string | null
     created_at: Date | null
@@ -1182,6 +1184,7 @@ export namespace Prisma {
     id: number
     username: number
     surname: number
+    department: number
     email: number
     password: number
     created_at: number
@@ -1202,6 +1205,7 @@ export namespace Prisma {
     id?: true
     username?: true
     surname?: true
+    department?: true
     email?: true
     password?: true
     created_at?: true
@@ -1212,6 +1216,7 @@ export namespace Prisma {
     id?: true
     username?: true
     surname?: true
+    department?: true
     email?: true
     password?: true
     created_at?: true
@@ -1222,6 +1227,7 @@ export namespace Prisma {
     id?: true
     username?: true
     surname?: true
+    department?: true
     email?: true
     password?: true
     created_at?: true
@@ -1319,6 +1325,7 @@ export namespace Prisma {
     id: number
     username: string
     surname: string
+    department: string
     email: string
     password: string
     created_at: Date
@@ -1348,6 +1355,7 @@ export namespace Prisma {
     id?: boolean
     username?: boolean
     surname?: boolean
+    department?: boolean
     email?: boolean
     password?: boolean
     created_at?: boolean
@@ -1361,6 +1369,7 @@ export namespace Prisma {
     id?: boolean
     username?: boolean
     surname?: boolean
+    department?: boolean
     email?: boolean
     password?: boolean
     created_at?: boolean
@@ -1371,6 +1380,7 @@ export namespace Prisma {
     id?: boolean
     username?: boolean
     surname?: boolean
+    department?: boolean
     email?: boolean
     password?: boolean
     created_at?: boolean
@@ -1381,13 +1391,14 @@ export namespace Prisma {
     id?: boolean
     username?: boolean
     surname?: boolean
+    department?: boolean
     email?: boolean
     password?: boolean
     created_at?: boolean
     role?: boolean
   }
 
-  export type UsersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "surname" | "email" | "password" | "created_at" | "role", ExtArgs["result"]["users"]>
+  export type UsersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "surname" | "department" | "email" | "password" | "created_at" | "role", ExtArgs["result"]["users"]>
   export type UsersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts?: boolean | Users$postsArgs<ExtArgs>
     confirms?: boolean | Users$confirmsArgs<ExtArgs>
@@ -1406,6 +1417,7 @@ export namespace Prisma {
       id: number
       username: string
       surname: string
+      department: string
       email: string
       password: string
       created_at: Date
@@ -1838,6 +1850,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Users", 'Int'>
     readonly username: FieldRef<"Users", 'String'>
     readonly surname: FieldRef<"Users", 'String'>
+    readonly department: FieldRef<"Users", 'String'>
     readonly email: FieldRef<"Users", 'String'>
     readonly password: FieldRef<"Users", 'String'>
     readonly created_at: FieldRef<"Users", 'DateTime'>
@@ -2318,7 +2331,8 @@ export namespace Prisma {
 
   export type PostsMinAggregateOutputType = {
     id: number | null
-    department: string | null
+    start_time: string | null
+    end_time: string | null
     post_date: Date | null
     created_at: Date | null
     doctorId: number | null
@@ -2326,7 +2340,8 @@ export namespace Prisma {
 
   export type PostsMaxAggregateOutputType = {
     id: number | null
-    department: string | null
+    start_time: string | null
+    end_time: string | null
     post_date: Date | null
     created_at: Date | null
     doctorId: number | null
@@ -2334,7 +2349,8 @@ export namespace Prisma {
 
   export type PostsCountAggregateOutputType = {
     id: number
-    department: number
+    start_time: number
+    end_time: number
     post_date: number
     created_at: number
     doctorId: number
@@ -2354,7 +2370,8 @@ export namespace Prisma {
 
   export type PostsMinAggregateInputType = {
     id?: true
-    department?: true
+    start_time?: true
+    end_time?: true
     post_date?: true
     created_at?: true
     doctorId?: true
@@ -2362,7 +2379,8 @@ export namespace Prisma {
 
   export type PostsMaxAggregateInputType = {
     id?: true
-    department?: true
+    start_time?: true
+    end_time?: true
     post_date?: true
     created_at?: true
     doctorId?: true
@@ -2370,7 +2388,8 @@ export namespace Prisma {
 
   export type PostsCountAggregateInputType = {
     id?: true
-    department?: true
+    start_time?: true
+    end_time?: true
     post_date?: true
     created_at?: true
     doctorId?: true
@@ -2465,7 +2484,8 @@ export namespace Prisma {
 
   export type PostsGroupByOutputType = {
     id: number
-    department: string
+    start_time: string
+    end_time: string
     post_date: Date
     created_at: Date
     doctorId: number
@@ -2492,7 +2512,8 @@ export namespace Prisma {
 
   export type PostsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    department?: boolean
+    start_time?: boolean
+    end_time?: boolean
     post_date?: boolean
     created_at?: boolean
     doctorId?: boolean
@@ -2503,7 +2524,8 @@ export namespace Prisma {
 
   export type PostsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    department?: boolean
+    start_time?: boolean
+    end_time?: boolean
     post_date?: boolean
     created_at?: boolean
     doctorId?: boolean
@@ -2512,7 +2534,8 @@ export namespace Prisma {
 
   export type PostsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    department?: boolean
+    start_time?: boolean
+    end_time?: boolean
     post_date?: boolean
     created_at?: boolean
     doctorId?: boolean
@@ -2521,13 +2544,14 @@ export namespace Prisma {
 
   export type PostsSelectScalar = {
     id?: boolean
-    department?: boolean
+    start_time?: boolean
+    end_time?: boolean
     post_date?: boolean
     created_at?: boolean
     doctorId?: boolean
   }
 
-  export type PostsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "department" | "post_date" | "created_at" | "doctorId", ExtArgs["result"]["posts"]>
+  export type PostsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "start_time" | "end_time" | "post_date" | "created_at" | "doctorId", ExtArgs["result"]["posts"]>
   export type PostsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     doctor?: boolean | UsersDefaultArgs<ExtArgs>
     confirms?: boolean | Posts$confirmsArgs<ExtArgs>
@@ -2548,7 +2572,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      department: string
+      start_time: string
+      end_time: string
       post_date: Date
       created_at: Date
       doctorId: number
@@ -2978,7 +3003,8 @@ export namespace Prisma {
    */
   interface PostsFieldRefs {
     readonly id: FieldRef<"Posts", 'Int'>
-    readonly department: FieldRef<"Posts", 'String'>
+    readonly start_time: FieldRef<"Posts", 'String'>
+    readonly end_time: FieldRef<"Posts", 'String'>
     readonly post_date: FieldRef<"Posts", 'DateTime'>
     readonly created_at: FieldRef<"Posts", 'DateTime'>
     readonly doctorId: FieldRef<"Posts", 'Int'>
@@ -4509,6 +4535,7 @@ export namespace Prisma {
     id: 'id',
     username: 'username',
     surname: 'surname',
+    department: 'department',
     email: 'email',
     password: 'password',
     created_at: 'created_at',
@@ -4520,7 +4547,8 @@ export namespace Prisma {
 
   export const PostsScalarFieldEnum: {
     id: 'id',
-    department: 'department',
+    start_time: 'start_time',
+    end_time: 'end_time',
     post_date: 'post_date',
     created_at: 'created_at',
     doctorId: 'doctorId'
@@ -4603,6 +4631,7 @@ export namespace Prisma {
     id?: IntFilter<"Users"> | number
     username?: StringFilter<"Users"> | string
     surname?: StringFilter<"Users"> | string
+    department?: StringFilter<"Users"> | string
     email?: StringFilter<"Users"> | string
     password?: StringFilter<"Users"> | string
     created_at?: DateTimeFilter<"Users"> | Date | string
@@ -4615,6 +4644,7 @@ export namespace Prisma {
     id?: SortOrder
     username?: SortOrder
     surname?: SortOrder
+    department?: SortOrder
     email?: SortOrder
     password?: SortOrder
     created_at?: SortOrder
@@ -4631,6 +4661,7 @@ export namespace Prisma {
     NOT?: UsersWhereInput | UsersWhereInput[]
     username?: StringFilter<"Users"> | string
     surname?: StringFilter<"Users"> | string
+    department?: StringFilter<"Users"> | string
     password?: StringFilter<"Users"> | string
     created_at?: DateTimeFilter<"Users"> | Date | string
     role?: EnumRolesFilter<"Users"> | $Enums.Roles
@@ -4642,6 +4673,7 @@ export namespace Prisma {
     id?: SortOrder
     username?: SortOrder
     surname?: SortOrder
+    department?: SortOrder
     email?: SortOrder
     password?: SortOrder
     created_at?: SortOrder
@@ -4660,6 +4692,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Users"> | number
     username?: StringWithAggregatesFilter<"Users"> | string
     surname?: StringWithAggregatesFilter<"Users"> | string
+    department?: StringWithAggregatesFilter<"Users"> | string
     email?: StringWithAggregatesFilter<"Users"> | string
     password?: StringWithAggregatesFilter<"Users"> | string
     created_at?: DateTimeWithAggregatesFilter<"Users"> | Date | string
@@ -4671,7 +4704,8 @@ export namespace Prisma {
     OR?: PostsWhereInput[]
     NOT?: PostsWhereInput | PostsWhereInput[]
     id?: IntFilter<"Posts"> | number
-    department?: StringFilter<"Posts"> | string
+    start_time?: StringFilter<"Posts"> | string
+    end_time?: StringFilter<"Posts"> | string
     post_date?: DateTimeFilter<"Posts"> | Date | string
     created_at?: DateTimeFilter<"Posts"> | Date | string
     doctorId?: IntFilter<"Posts"> | number
@@ -4681,7 +4715,8 @@ export namespace Prisma {
 
   export type PostsOrderByWithRelationInput = {
     id?: SortOrder
-    department?: SortOrder
+    start_time?: SortOrder
+    end_time?: SortOrder
     post_date?: SortOrder
     created_at?: SortOrder
     doctorId?: SortOrder
@@ -4694,7 +4729,8 @@ export namespace Prisma {
     AND?: PostsWhereInput | PostsWhereInput[]
     OR?: PostsWhereInput[]
     NOT?: PostsWhereInput | PostsWhereInput[]
-    department?: StringFilter<"Posts"> | string
+    start_time?: StringFilter<"Posts"> | string
+    end_time?: StringFilter<"Posts"> | string
     post_date?: DateTimeFilter<"Posts"> | Date | string
     created_at?: DateTimeFilter<"Posts"> | Date | string
     doctorId?: IntFilter<"Posts"> | number
@@ -4704,7 +4740,8 @@ export namespace Prisma {
 
   export type PostsOrderByWithAggregationInput = {
     id?: SortOrder
-    department?: SortOrder
+    start_time?: SortOrder
+    end_time?: SortOrder
     post_date?: SortOrder
     created_at?: SortOrder
     doctorId?: SortOrder
@@ -4720,7 +4757,8 @@ export namespace Prisma {
     OR?: PostsScalarWhereWithAggregatesInput[]
     NOT?: PostsScalarWhereWithAggregatesInput | PostsScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Posts"> | number
-    department?: StringWithAggregatesFilter<"Posts"> | string
+    start_time?: StringWithAggregatesFilter<"Posts"> | string
+    end_time?: StringWithAggregatesFilter<"Posts"> | string
     post_date?: DateTimeWithAggregatesFilter<"Posts"> | Date | string
     created_at?: DateTimeWithAggregatesFilter<"Posts"> | Date | string
     doctorId?: IntWithAggregatesFilter<"Posts"> | number
@@ -4780,6 +4818,7 @@ export namespace Prisma {
   export type UsersCreateInput = {
     username: string
     surname: string
+    department: string
     email: string
     password: string
     created_at?: Date | string
@@ -4792,6 +4831,7 @@ export namespace Prisma {
     id?: number
     username: string
     surname: string
+    department: string
     email: string
     password: string
     created_at?: Date | string
@@ -4803,6 +4843,7 @@ export namespace Prisma {
   export type UsersUpdateInput = {
     username?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4815,6 +4856,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4827,6 +4869,7 @@ export namespace Prisma {
     id?: number
     username: string
     surname: string
+    department: string
     email: string
     password: string
     created_at?: Date | string
@@ -4836,6 +4879,7 @@ export namespace Prisma {
   export type UsersUpdateManyMutationInput = {
     username?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4846,6 +4890,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4853,7 +4898,8 @@ export namespace Prisma {
   }
 
   export type PostsCreateInput = {
-    department: string
+    start_time: string
+    end_time: string
     post_date: Date | string
     created_at?: Date | string
     doctor: UsersCreateNestedOneWithoutPostsInput
@@ -4862,7 +4908,8 @@ export namespace Prisma {
 
   export type PostsUncheckedCreateInput = {
     id?: number
-    department: string
+    start_time: string
+    end_time: string
     post_date: Date | string
     created_at?: Date | string
     doctorId: number
@@ -4870,7 +4917,8 @@ export namespace Prisma {
   }
 
   export type PostsUpdateInput = {
-    department?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
+    end_time?: StringFieldUpdateOperationsInput | string
     post_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     doctor?: UsersUpdateOneRequiredWithoutPostsNestedInput
@@ -4879,7 +4927,8 @@ export namespace Prisma {
 
   export type PostsUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    department?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
+    end_time?: StringFieldUpdateOperationsInput | string
     post_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     doctorId?: IntFieldUpdateOperationsInput | number
@@ -4888,21 +4937,24 @@ export namespace Prisma {
 
   export type PostsCreateManyInput = {
     id?: number
-    department: string
+    start_time: string
+    end_time: string
     post_date: Date | string
     created_at?: Date | string
     doctorId: number
   }
 
   export type PostsUpdateManyMutationInput = {
-    department?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
+    end_time?: StringFieldUpdateOperationsInput | string
     post_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostsUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    department?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
+    end_time?: StringFieldUpdateOperationsInput | string
     post_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     doctorId?: IntFieldUpdateOperationsInput | number
@@ -5015,6 +5067,7 @@ export namespace Prisma {
     id?: SortOrder
     username?: SortOrder
     surname?: SortOrder
+    department?: SortOrder
     email?: SortOrder
     password?: SortOrder
     created_at?: SortOrder
@@ -5029,6 +5082,7 @@ export namespace Prisma {
     id?: SortOrder
     username?: SortOrder
     surname?: SortOrder
+    department?: SortOrder
     email?: SortOrder
     password?: SortOrder
     created_at?: SortOrder
@@ -5039,6 +5093,7 @@ export namespace Prisma {
     id?: SortOrder
     username?: SortOrder
     surname?: SortOrder
+    department?: SortOrder
     email?: SortOrder
     password?: SortOrder
     created_at?: SortOrder
@@ -5113,7 +5168,8 @@ export namespace Prisma {
 
   export type PostsCountOrderByAggregateInput = {
     id?: SortOrder
-    department?: SortOrder
+    start_time?: SortOrder
+    end_time?: SortOrder
     post_date?: SortOrder
     created_at?: SortOrder
     doctorId?: SortOrder
@@ -5126,7 +5182,8 @@ export namespace Prisma {
 
   export type PostsMaxOrderByAggregateInput = {
     id?: SortOrder
-    department?: SortOrder
+    start_time?: SortOrder
+    end_time?: SortOrder
     post_date?: SortOrder
     created_at?: SortOrder
     doctorId?: SortOrder
@@ -5134,7 +5191,8 @@ export namespace Prisma {
 
   export type PostsMinOrderByAggregateInput = {
     id?: SortOrder
-    department?: SortOrder
+    start_time?: SortOrder
+    end_time?: SortOrder
     post_date?: SortOrder
     created_at?: SortOrder
     doctorId?: SortOrder
@@ -5513,7 +5571,8 @@ export namespace Prisma {
   }
 
   export type PostsCreateWithoutDoctorInput = {
-    department: string
+    start_time: string
+    end_time: string
     post_date: Date | string
     created_at?: Date | string
     confirms?: ConfirmCreateNestedManyWithoutPostInput
@@ -5521,7 +5580,8 @@ export namespace Prisma {
 
   export type PostsUncheckedCreateWithoutDoctorInput = {
     id?: number
-    department: string
+    start_time: string
+    end_time: string
     post_date: Date | string
     created_at?: Date | string
     confirms?: ConfirmUncheckedCreateNestedManyWithoutPostInput
@@ -5576,7 +5636,8 @@ export namespace Prisma {
     OR?: PostsScalarWhereInput[]
     NOT?: PostsScalarWhereInput | PostsScalarWhereInput[]
     id?: IntFilter<"Posts"> | number
-    department?: StringFilter<"Posts"> | string
+    start_time?: StringFilter<"Posts"> | string
+    end_time?: StringFilter<"Posts"> | string
     post_date?: DateTimeFilter<"Posts"> | Date | string
     created_at?: DateTimeFilter<"Posts"> | Date | string
     doctorId?: IntFilter<"Posts"> | number
@@ -5610,6 +5671,7 @@ export namespace Prisma {
   export type UsersCreateWithoutPostsInput = {
     username: string
     surname: string
+    department: string
     email: string
     password: string
     created_at?: Date | string
@@ -5621,6 +5683,7 @@ export namespace Prisma {
     id?: number
     username: string
     surname: string
+    department: string
     email: string
     password: string
     created_at?: Date | string
@@ -5666,6 +5729,7 @@ export namespace Prisma {
   export type UsersUpdateWithoutPostsInput = {
     username?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5677,6 +5741,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5703,6 +5768,7 @@ export namespace Prisma {
   export type UsersCreateWithoutConfirmsInput = {
     username: string
     surname: string
+    department: string
     email: string
     password: string
     created_at?: Date | string
@@ -5714,6 +5780,7 @@ export namespace Prisma {
     id?: number
     username: string
     surname: string
+    department: string
     email: string
     password: string
     created_at?: Date | string
@@ -5727,7 +5794,8 @@ export namespace Prisma {
   }
 
   export type PostsCreateWithoutConfirmsInput = {
-    department: string
+    start_time: string
+    end_time: string
     post_date: Date | string
     created_at?: Date | string
     doctor: UsersCreateNestedOneWithoutPostsInput
@@ -5735,7 +5803,8 @@ export namespace Prisma {
 
   export type PostsUncheckedCreateWithoutConfirmsInput = {
     id?: number
-    department: string
+    start_time: string
+    end_time: string
     post_date: Date | string
     created_at?: Date | string
     doctorId: number
@@ -5760,6 +5829,7 @@ export namespace Prisma {
   export type UsersUpdateWithoutConfirmsInput = {
     username?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5771,6 +5841,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     username?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5790,7 +5861,8 @@ export namespace Prisma {
   }
 
   export type PostsUpdateWithoutConfirmsInput = {
-    department?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
+    end_time?: StringFieldUpdateOperationsInput | string
     post_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     doctor?: UsersUpdateOneRequiredWithoutPostsNestedInput
@@ -5798,7 +5870,8 @@ export namespace Prisma {
 
   export type PostsUncheckedUpdateWithoutConfirmsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    department?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
+    end_time?: StringFieldUpdateOperationsInput | string
     post_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     doctorId?: IntFieldUpdateOperationsInput | number
@@ -5806,7 +5879,8 @@ export namespace Prisma {
 
   export type PostsCreateManyDoctorInput = {
     id?: number
-    department: string
+    start_time: string
+    end_time: string
     post_date: Date | string
     created_at?: Date | string
   }
@@ -5817,7 +5891,8 @@ export namespace Prisma {
   }
 
   export type PostsUpdateWithoutDoctorInput = {
-    department?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
+    end_time?: StringFieldUpdateOperationsInput | string
     post_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     confirms?: ConfirmUpdateManyWithoutPostNestedInput
@@ -5825,7 +5900,8 @@ export namespace Prisma {
 
   export type PostsUncheckedUpdateWithoutDoctorInput = {
     id?: IntFieldUpdateOperationsInput | number
-    department?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
+    end_time?: StringFieldUpdateOperationsInput | string
     post_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     confirms?: ConfirmUncheckedUpdateManyWithoutPostNestedInput
@@ -5833,7 +5909,8 @@ export namespace Prisma {
 
   export type PostsUncheckedUpdateManyWithoutDoctorInput = {
     id?: IntFieldUpdateOperationsInput | number
-    department?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
+    end_time?: StringFieldUpdateOperationsInput | string
     post_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

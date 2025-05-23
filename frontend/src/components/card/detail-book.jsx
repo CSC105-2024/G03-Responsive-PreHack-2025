@@ -24,50 +24,40 @@ import { CircleUserRound } from "lucide-react";
 import { Button } from "@/components/ui/button.jsx";
 import { Badge } from "@/components/ui/badge.jsx";
 import { EllipsisVertical } from "lucide-react";
-import { useState } from "react";
-const DetailBook = ({ Available }) => {
-  const [isAvailable, setIsAvailable] = useState(Available);
 
-  const handleBooking = () => {
-    setIsAvailable(!isAvailable);
-  };
+const DetailBook = ({sym, doctor, date}) => {
+
   return (
     <Card>
       <CardHeader>
-        <CardDescription>12.00 - 13.00 AM</CardDescription>
+        <CardDescription>{date}</CardDescription>
         <div className="flex justify-between">
-          <CardTitle className="text-2xl">Gastroenterologists</CardTitle>
-          {!isAvailable && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <EllipsisVertical size={32} />
-                  <span className="sr-only">Toggle user menu</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={handleBooking}>
-                  Delete
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
+          <CardTitle className="text-2xl">{sym}</CardTitle>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <EllipsisVertical size={32} />
+                <span className="sr-only">Toggle user menu</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem>
+                Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </CardHeader>
       <CardContent>
         <CardDescription>
           <div className="flex items-center space-x-2">
             <CircleUserRound />
-            <p>Dr.SomeThing</p>
+            <p>{doctor}</p>
           </div>
         </CardDescription>
       </CardContent>
       <CardFooter className="flex justify-end">
-        {isAvailable ? (
-          <Button onClick={handleBooking}>Book</Button>
-        ) : (
-          <Badge className="bg-orange-400 hover:bg-orange-500">Booked</Badge>
-        )}
+        <Button>Book</Button>
       </CardFooter>
     </Card>
   );

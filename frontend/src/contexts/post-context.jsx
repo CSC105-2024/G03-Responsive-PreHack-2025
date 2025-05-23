@@ -1,6 +1,5 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import { newPost, getAllPost } from '../services/post.service';
-import {useLocation} from "react-router";
 
 const PostContext = createContext();
 
@@ -8,16 +7,15 @@ export const PostProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [post, setPost] = useState(null);
     const [error, setError] = useState("");
-    const location = useLocation();
     
     useEffect(() => {
+        setLoading(true);
         const getPost = async () =>{
             try {
-                setLoading(true);
                 const response = await getAllPost();
-                setPost(response);
-                console.log(response)
-                return response;
+                if (response.success) {
+                    setPost(response?.data?.data);
+                }
             } catch (error) {
                 setError(error.response?.error);
             } finally {
@@ -27,17 +25,17 @@ export const PostProvider = ({ children }) => {
         getPost()
     }, [])
     
-    const createPost = async ({department, post_date}) =>{
+    const createPost = async ({start_time, end_time, post_date}) =>{
         try {
             setLoading(true);
-            const response = await newPost({department, post_date});
+            const response = await newPost({start_time, end_time, post_date});
             if (response.success) {
                 const allPosts = await getAllPost();
-                setPost(allPosts);
+                setPost(allPosts?.data?.data);
             }
-            return response;
         } catch (error) {
-            setError(error.response?.error);
+            setPost(null);
+            setError(error.response.error);
         } finally {
             setLoading(false);
         }
