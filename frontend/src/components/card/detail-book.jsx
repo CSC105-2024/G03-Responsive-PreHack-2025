@@ -24,20 +24,15 @@ import { CircleUserRound } from "lucide-react";
 import { Button } from "@/components/ui/button.jsx";
 import { Badge } from "@/components/ui/badge.jsx";
 import { EllipsisVertical } from "lucide-react";
-import { useState } from "react";
-const DetailBook = ({ Available }) => {
-  const [isAvailable, setIsAvailable] = useState(Available);
 
-  const handleBooking = () => {
-    setIsAvailable(!isAvailable);
-  };
+const DetailBook = ({ sym, doctor, date, status }) => {
   return (
     <Card>
       <CardHeader>
-        <CardDescription>12.00 - 13.00 AM</CardDescription>
+        <CardDescription>{date}</CardDescription>
         <div className="flex justify-between">
-          <CardTitle className="text-2xl">Gastroenterologists</CardTitle>
-          {!isAvailable && (
+          <CardTitle className="text-2xl">{sym}</CardTitle> 
+          {!status && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon">
@@ -46,9 +41,7 @@ const DetailBook = ({ Available }) => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={handleBooking}>
-                  Delete
-                </DropdownMenuItem>
+                <DropdownMenuItem>Delete</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )}
@@ -58,13 +51,13 @@ const DetailBook = ({ Available }) => {
         <CardDescription>
           <div className="flex items-center space-x-2">
             <CircleUserRound />
-            <p>Dr.SomeThing</p>
+            <p>{doctor}</p>
           </div>
         </CardDescription>
       </CardContent>
       <CardFooter className="flex justify-end">
-        {isAvailable ? (
-          <Button onClick={handleBooking}>Book</Button>
+        {status ? (
+          <Button>Book</Button>
         ) : (
           <Badge className="bg-orange-400 hover:bg-orange-500">Booked</Badge>
         )}

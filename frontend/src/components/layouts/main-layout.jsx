@@ -1,16 +1,24 @@
-import Header from "@/components/nav/app-header";
+import Navbar from "@/components/nav/nav-topbar.jsx";
 import Footer from "@/components/footer/Footer";
+import { useLocation } from "react-router";
 
 const Layout = ({ children }) => {
-  return (
+    const location = useLocation().pathname;
+    return (
       <div className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow max-w-7xl pt-40 mx-auto ">
+        <Navbar />
+        <main 
+            className={`flex-grow max-w-7xl mx-auto md:pt-26 md:pb-16
+                ${location === '/dashboard' 
+                    ? 'pt-26 pb-16' : 'py-6 '
+                }`
+            }>
+
           {children}
         </main>
-        <Footer />
+        {/*<Footer />*/}
       </div>
-  );
+    );
 };
 
 export default Layout;

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
+  Dialog, DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -15,7 +15,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { usePost } from "@/contexts/post-context.jsx";
 import { PopoverContent, PopoverTrigger } from "@/components/ui/popover.jsx";
@@ -29,25 +28,39 @@ import { format } from "date-fns";
 const CreateBook = () => {
   const { createPost, loading } = usePost();
   const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
+  const [time, setTime] = useState("");
+  const [openC, setOpenC] = useState(false); 
+  const [openD, setOpenD] = useState(false);
 
   const handleSave = async () => {
+    const timeSlot = time.split("-");
+    const start = timeSlot[0];
+    const end = timeSlot[1];
+    
     await createPost({
-      department: "Hi",
+      start_time: start,
+      end_time: end,
       post_date: date,
     });
+    if (loading) setOpenD(true);
   };
-  console.log(date);
+  
   useEffect(() => {
     if (loading) {
-      setOpen(true);
+      setOpenC(true);
     }
   }, [loading]);
 
   return (
-    <Dialog>
+    <Dialog open={openD} onOpenChange={(open) => {
+      setOpenD(open);
+      if (!open) {
+        setTime("");       
+        setDate(new Date());
+      }
+    }}>
       <DialogTrigger asChild>
-        <Button variant="outline">Create</Button>
+        <Button>Create</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -61,15 +74,15 @@ const CreateBook = () => {
             <Label htmlFor="name" className="text-right">
               Time
             </Label>
-            <Select>
+            <Select value={time} onValueChange={setTime}>
               <SelectTrigger className="w-[250px]">
                 <SelectValue placeholder="Select time" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="1">8:00 - 10:00</SelectItem>
-                <SelectItem value="2">10:00 - 12:00</SelectItem>
-                <SelectItem value="3">13:00 - 15:00</SelectItem>
-                <SelectItem value="4">15:00 - 17:00</SelectItem>
+                <SelectItem value="8:00-10:00">8:00 - 10:00</SelectItem>
+                <SelectItem value="10:00-12:00">10:00 - 12:00</SelectItem>
+                <SelectItem value="13:00-15:00">13:00 - 15:00</SelectItem>
+                <SelectItem value="15:00-17:00">15:00 - 17:00</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -77,7 +90,7 @@ const CreateBook = () => {
             <Label htmlFor="username" className="text-right">
               Date
             </Label>
-            <Popover open={open} onOpenChange={setOpen}>
+            <Popover open={openC} onOpenChange={setOpenC}>
               <PopoverTrigger asChild>
                 <Button
                   variant={"outline"}
@@ -96,9 +109,9 @@ const CreateBook = () => {
                   selected={date}
                   onSelect={(selectedDate) => {
                     setDate(selectedDate);
-                    setOpen(false);
+                    setOpenC(false);
                   }}
-                  disabled={(date) => date < new Date("1900-01-01")}
+                  disabled={(date) =>  date < new Date("1900-01-01") || date < new Date()}
                   initialFocus
                 />
               </PopoverContent>
@@ -106,9 +119,11 @@ const CreateBook = () => {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleSave}>
-            Save
-          </Button>
+          <DialogClose asChild>
+            <Button type="submit" onClick={handleSave}>
+              Save
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -17,15 +17,28 @@ class PostModelLo {
             });
         }
 
+        function isTimeFormat(time: string): boolean {
+            const regex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+            return regex.test(time);
+        }
+        
+        if (!isTimeFormat(data.start_time) || !isTimeFormat(data.end_time)) {
+            throw new HTTPException(400, {
+                message: 'Invalid start_time or end end_time [HH:MM]',
+            });
+        }
+        
         return prisma.posts.create({
             data:{
-                department: data.department,
+                start_time: data.start_time,
+                end_time: data.end_time,
                 post_date: parsedDate,
-                users: {
+                doctor: {
                     connect :{
                         id: id
                     }
                 }
+
             }
         })
     }
@@ -50,19 +63,60 @@ class PostModelLo {
     }
     
     async findMany () {
-        const post =  await prisma.confirm.findMany({
-            where: {confirm: false},
+        const post =  await prisma.posts.findMany({
+            where: {
+                confirms: {
+                    none: {}
+                }
+            },
             include: {
-                post: true,
+                doctor: true,
+                confirms: true,
+                
             }
         });
-        if (post.length === 0) {
-            throw new HTTPException(404,{
-                message: 'No post found',
-            })
-        }
+        // if (post.length === 0) {
+        //     throw new HTTPException(404,{
+        //         message: 'No post found',
+        //     })
+        // }
         return post;
-    }   
+    }  
+
+    async findByDoctorId(id: number) {
+        const posts =  await prisma.posts.findMany({
+            where: {doctorId: id},
+            include: {
+                doctor: true,
+                confirms: true
+            }
+        })
+
+        return posts.map(post => ({
+            id: post.id,
+            start_time: post.start_time,
+            end_time: post.end_time,
+            post_date: post.post_date,
+            created_at: post.created_at,
+            doctor: post.doctor,
+            confirm: post.confirms.length > 0
+        }));
+    }
+    
+    async deleteById(id: number) {
+        try {
+            return await prisma.posts.delete({
+               where: {
+                   id
+               }
+           });
+        } catch (error) {
+           throw new HTTPException(404,{
+               message: 'Cannot delete post',
+               cause: {form: true},
+           })
+        }
+    }
 }
 
 const PostModel = new PostModelLo();

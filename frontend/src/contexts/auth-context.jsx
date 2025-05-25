@@ -1,28 +1,34 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
-import { signUp, signIn, fetch } from '../services/auth.service';
+import {
+    createContext,
+    useContext,
+    useEffect,
+    useState,
+} from 'react';
+import {signUp, signIn, fetch, signOut} from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const  [user, setUser] = useState(null);
-    const  [error, setError] = useState("");
-    
-    useEffect(() => {
-        const checkStatus = async () => {
-            try {
-                const response = await fetch();
-                if (response.success) {
-                    setUser(response.data.data);
-                }
-            } catch (error) {
-                setUser(null);
-            } finally {
+    const [user, setUser] = useState(null);
+    const [error, setError] = useState("");
+
+    const checkStatus = async () => {
+        try {
+            const response = await fetch();
+            if (response.success) {
+                setUser(response?.data?.data);
                 setLoading(false);
             }
-        }
-        checkStatus();
+        } catch (error) {
+            setError(error.response.error);
+        } 
+    }
+    
+    useEffect(() => {
+        setLoading(true)
+        checkStatus().finally(() => setLoading(false));
     }, [])
 
     const signUpUser = async ({
@@ -31,12 +37,15 @@ export const AuthProvider = ({ children }) => {
         email,
         password,
         role,
+        department,
 }) =>{
+        setLoading(true);
         try {
-            setLoading(true);
-            const response = await signUp({username, surname, email, password, role});
-            setUser(response);
-            return response;
+            const response = await signUp({username, surname, email, password, department, role});
+            if (response.success) {
+                setUser(response?.data?.data);
+                navigate('/');
+            }
         } finally {
             setLoading(false);
         }
@@ -45,22 +54,36 @@ export const AuthProvider = ({ children }) => {
         username,
         password,
     }) => {
+        setLoading(true);
         try {
-            setLoading(true);
             const response = await signIn({username, password})
-
             if (response.success) {
-                setUser(response);
-                navigate('/');
+                const fetchResponse = await fetch()
+                
+                if (fetchResponse.success) {
+                    setUser(fetchResponse?.data?.data);
+                    navigate('/');
+                }
             }
-            return response;
+            return response?.data?.data;
         } catch(error) {
             setError(error.response.data.error);
         } finally {
             setLoading(false);
         }
     }
-
+    
+    const signOutUser = async () => {
+        setLoading(true);
+        try {
+            await signOut();
+            setUser(null)
+        } catch (error) {
+            setError(error.response.data.error);
+        } finally {
+            setLoading(false);
+        }
+    }
     return (
         <AuthContext.Provider value={{
             loading,
@@ -68,6 +91,7 @@ export const AuthProvider = ({ children }) => {
             error,
             signUpUser,
             signInUser,
+            signOutUser,
             isAuth: !!user,
         }}>
             {children}

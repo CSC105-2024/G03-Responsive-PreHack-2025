@@ -1,29 +1,17 @@
-import Cookies from 'js-cookie';
 import axios from "axios";
 
 export const baseApi = axios.create({
     baseURL: "http://localhost:3000/api/v1",
     withCredentials: true,
-
 })
 
 baseApi.interceptors.request.use(
-    (config) => {
-        const token = Cookies.get("accessToken")
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        console.log(token)
-        return config
-    },
-    (error) => {
-       return Promise.reject(error);
-    }
+    (config) => config,
+    (error) => Promise.reject(error)
 )
 
 baseApi.interceptors.response.use(
     (response) => {
-        console.log(response);
         return response;
     },
     (error) => {
@@ -46,7 +34,7 @@ baseApi.interceptors.response.use(
 )
 
 export const get = async (url, config = {}) => {
-    const response = await axios.get(url, config);
+    const response = await baseApi.get(url, config);
     return response.data;
 };
 

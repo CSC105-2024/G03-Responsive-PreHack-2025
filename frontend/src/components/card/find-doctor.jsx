@@ -25,11 +25,35 @@ import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar.jsx";
 import { useState } from "react";
-
+import { usePost } from "@/contexts/post-context.jsx";
 const FindDoctor = () => {
+  const { setFilters } = usePost();
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const [symptoms, setSymptoms] = useState("");
+  const [time, setTime] = useState("");
+
+  const handleSearch = () => {
+    const filterData = {
+      date: date,
+      time: time,
+      symptoms: symptoms,
+    };
+    console.log("Filter Data:", filterData);
+    setFilters(filterData);
+  };
+
+  const handleClear = () => {
+    setSymptoms("");
+    setTime("");
+    setDate(new Date());
+    setFilters({
+      date: null,
+      time: "",
+      symptoms: "",
+    });
+    console.log("Clear all filters");
+  };
 
   return (
     <Card>
@@ -42,41 +66,49 @@ const FindDoctor = () => {
       <CardContent>
         <div className="grid grid-rows-1 gap-3 lg:grid-cols-3">
           {/*sysptoms*/}
-          <Select>
-            <SelectTrigger className="w-[250px]">
+          <Select value={symptoms} onValueChange={setSymptoms}>
+            <SelectTrigger className="w-[200px]">
               <SelectValue placeholder="Select your symptoms" />
             </SelectTrigger>
-
             <SelectContent className="p-0">
               <ScrollArea className="max-h-60 scroll-area">
-                <SelectItem value="1">Headache</SelectItem>
-                <SelectItem value="2">Stomach ache</SelectItem>
-                <SelectItem value="3">Fever</SelectItem>
-                <SelectItem value="4">Cough / Sore throat</SelectItem>
-                <SelectItem value="5">Rash / Itching</SelectItem>
-                <SelectItem value="6">Joint pain / Back pain</SelectItem>
-                <SelectItem value="7">Toothache / Swollen gums</SelectItem>
-                <SelectItem value="8">Red eyes / Blurred vision</SelectItem>
-                <SelectItem value="9">Ear ringing / Dizziness</SelectItem>
-                <SelectItem value="10">Chest pain / Palpitations</SelectItem>
-                <SelectItem value="11">
+                <SelectItem value="neurology">Headache</SelectItem>
+                <SelectItem value="gastroenterology">Stomach ache</SelectItem>
+                <SelectItem value="internal-medicine">Fever</SelectItem>
+                <SelectItem value="pulmonology">Cough / Sore throat</SelectItem>
+                <SelectItem value="dermatology">Rash / Itching</SelectItem>
+                <SelectItem value="orthopedics">
+                  Joint pain / Back pain
+                </SelectItem>
+                <SelectItem value="dentistry">
+                  Toothache / Swollen gums
+                </SelectItem>
+                <SelectItem value="ophthalmology">
+                  Red eyes / Blurred vision
+                </SelectItem>
+                <SelectItem value="ent-otolaryngology">
+                  Ear ringing / Dizziness
+                </SelectItem>
+                <SelectItem value="cardiology">
+                  Chest pain / Palpitations
+                </SelectItem>
+                <SelectItem value="obstetrics-gynecology">
                   Irregular menstruation / Menstrual cramps
                 </SelectItem>
-                <SelectItem value="12">
-                  Family planning / Pregnancy check-up
-                </SelectItem>
-                <SelectItem value="13">
+                <SelectItem value="pediatrics">
                   Sick children / Cough with fever
                 </SelectItem>
-                <SelectItem value="14">Anxiety / Depression</SelectItem>
-                <SelectItem value="15">Annual health check-up</SelectItem>
+                <SelectItem value="psychiatry">Anxiety / Depression</SelectItem>
+                <SelectItem value="internal-medicine">
+                  Annual health check-up
+                </SelectItem>
               </ScrollArea>
             </SelectContent>
           </Select>
 
           {/*time*/}
-          <Select>
-            <SelectTrigger className="w-[250px]">
+          <Select value={time} onValueChange={setTime}>
+            <SelectTrigger className="w-[200px]">
               <SelectValue placeholder="Select time" />
             </SelectTrigger>
             <SelectContent>
@@ -93,7 +125,7 @@ const FindDoctor = () => {
               <Button
                 variant={"outline"}
                 className={cn(
-                  "w-[250px] justify-start text-left font-normal",
+                  "w-[200px] justify-start text-left font-normal",
                   !date && "text-muted-foreground"
                 )}
               >
@@ -109,9 +141,7 @@ const FindDoctor = () => {
                   setDate(selectedDate);
                   setOpen(false);
                 }}
-                disabled={(date) =>
-                  date > new Date() || date < new Date("1900-01-01")
-                }
+                disabled={(date) => date < new Date("1900-01-01")}
                 initialFocus
               />
             </PopoverContent>
@@ -120,8 +150,10 @@ const FindDoctor = () => {
       </CardContent>
       <CardFooter>
         <div className="space-x-2 w-full flex justify-end ">
-          <Button>Search</Button>
-          <Button variant={"outline"}>Clear</Button>
+          <Button onClick={handleSearch}>Search</Button>
+          <Button variant={"outline"} onClick={handleClear}>
+            Clear
+          </Button>
         </div>
       </CardFooter>
     </Card>

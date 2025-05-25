@@ -27,6 +27,7 @@ class UserModelLo {
             data: {
                 username: data.username,
                 surname: data.surname,
+                department: data.department,
                 email: data.email,
                 password: data.password,
                 role: data.role as Roles,
@@ -56,7 +57,6 @@ class UserModelLo {
             },
         });
     }
-
 }
 
 const UserModel = new UserModelLo();

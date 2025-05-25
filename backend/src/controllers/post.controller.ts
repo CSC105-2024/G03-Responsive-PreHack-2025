@@ -20,9 +20,24 @@ class PostCrud extends AbstractController{
 
         return this.data(c, post,200, "Post found")
     }
+    
     async findMany(c: Context) {
         const post = await PostModel.findMany();
         return this.data(c, post,200, "Post found")
+    }
+    
+    async findByDoctorId(c: Context) {
+        const id = c.get('userId');
+        const post = await PostModel.findByDoctorId(id);
+        
+        return this.data(c, post,200, "Post found")
+    }
+    
+    async deleteById(c: Context) {
+        const {id} = c.req.query()
+        
+        await PostModel.deleteById(parseInt(id))
+        return this.json(c, 200, 'Post removed')
     }
 }
 

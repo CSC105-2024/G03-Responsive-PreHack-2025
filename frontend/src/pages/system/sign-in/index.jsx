@@ -1,8 +1,8 @@
 import { LoginMo } from "@/components/modules";
 
-const LogIn = () => {
+const SignIn = () => {
     return (
         <><LoginMo /></>
     )
 }
-export default LogIn;
+export default SignIn;
