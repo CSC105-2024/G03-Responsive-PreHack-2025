@@ -8,12 +8,7 @@ const Layout = ({ children }) => {
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <main 
-            className={`flex-grow max-w-7xl mx-auto md:pt-26 md:pb-16
-                ${location === '/dashboard' 
-                    ? 'pt-26 pb-16' : 'py-6 '
-                }`
-            }>
-
+            className="flex-grow max-w-7xl mx-auto md:pt-26 md:pb-16 pt-26">
           {children}
         </main>
         {/*<Footer />*/}

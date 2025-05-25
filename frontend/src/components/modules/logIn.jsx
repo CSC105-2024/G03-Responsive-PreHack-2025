@@ -9,7 +9,7 @@ const LoginMo = () => {
         <div className="grid min-h-svh lg:grid-cols-2">
             <div className="flex flex-col gap-4 p-6 md:p-10">
                 <div className="flex justify-center gap-20 md:justify-start">
-                    <Link to="/" className="flex items-center text-3xl">
+                    <Link to="/" className="flex items-center text-xl">
                         <span className="text-cyan-500 font-bold">D</span>
                         <span>ocOnTime</span>
                     </Link>

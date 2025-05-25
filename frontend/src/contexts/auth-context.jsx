@@ -22,9 +22,6 @@ export const AuthProvider = ({ children }) => {
                 setLoading(false);
             }
         } catch (error) {
-            if (error.response?.status === 401) {
-                navigate("/system/sign-in")
-            }
             setError(error.response.error);
         } 
     }
