@@ -12,7 +12,7 @@ const DashboardMo = () => {
     return (
         <PostProvider>
             <section className="md:min-w-7xl min-w-sm">
-                <div 
+                <div
                     className="relative bg-[url('https://plus.unsplash.com/premium_photo-1681995277879-42e0d91897e0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]
                     bg-cover bg-center h-96 rounded-lg flex items-center justify-center"
                 >
