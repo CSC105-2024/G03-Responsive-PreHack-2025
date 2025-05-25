@@ -37,7 +37,6 @@ const Navbar = () => {
           <span>ocOnTime</span>
         </Link>
       </motion.div>
-
       {!loading && isAuth ? (
           <div className="flex items-center space-x-1">
             <DropdownMenu>
