@@ -56,7 +56,7 @@ const FindDoctor = () => {
   };
 
   return (
-    <Card>
+    <Card className="bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
       <CardHeader>
         <CardTitle className="text-2xl">Let’s Find Your Doctor</CardTitle>
         <CardDescription>
@@ -125,7 +125,7 @@ const FindDoctor = () => {
               <Button
                 variant={"outline"}
                 className={cn(
-                  "w-[200px] justify-start text-left font-normal",
+                  "w-[300px] justify-start text-left font-normal",
                   !date && "text-muted-foreground"
                 )}
               >
