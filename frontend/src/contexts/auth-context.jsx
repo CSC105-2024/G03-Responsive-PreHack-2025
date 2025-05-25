@@ -4,7 +4,7 @@ import {
     useEffect,
     useState,
 } from 'react';
-import {signUp, signIn, fetch, signOut} from '../services/auth.service';
+import {signUp, signIn, fetch, signOut, refresh} from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
 const AuthContext = createContext();
 
@@ -23,7 +23,13 @@ export const AuthProvider = ({ children }) => {
             }
         } catch (error) {
             if (error.response?.status === 401) {
-                navigate("/system/sign-in")
+                const refreshResponse = await refresh();
+                if (!refreshResponse.success) {
+                    navigate('/system/sign-in');
+                } else {
+                    const retryFetch = await fetch();
+                    setUser(retryFetch?.data?.data);
+                }
             }
             setError(error.response.error);
         } 

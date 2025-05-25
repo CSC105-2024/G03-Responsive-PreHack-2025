@@ -15,6 +15,9 @@ class AuthCrud extends AbstractController{
         await AuthModel.logout(c);
         return this.json(c, 200, "Logged Out")
     }
+    async  refresh(c: Context) {
+        return await AuthModel.refresh(c);
+    }
 }
 
 const AuthController = new AuthCrud()
