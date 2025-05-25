@@ -20,6 +20,7 @@ api.post('/users', (c) => UserController.create(c))
 //auth
 api.post('/login', (c) => AuthController.login(c))
 api.post('/logout', authMiddleware, (c) => AuthController.logout(c))
+api.post('/refresh', authMiddleware, (c) => AuthController.refresh(c))
 
 //post
 api.get('/posts', (c) => PostController.findByQuery(c))

@@ -2,7 +2,9 @@ import type {Context} from "hono";
 import {prisma} from "../index.js";
 import {HTTPException} from "hono/http-exception";
 import {generateNewJWTAndSetCookie} from "../utils/jwt.util.js";
-import {deleteCookie} from "hono/cookie";
+import {deleteCookie, getCookie} from "hono/cookie";
+import { jwtVerify } from 'jose'
+import {env} from "process";
 
 class AuthModelLo {
     async login (username: string, password: string, c: Context) {
@@ -34,6 +36,28 @@ class AuthModelLo {
             secure: true,
             sameSite: 'Strict',
         });
+    }
+    
+    async refresh(c: Context) {
+        const refreshToken = getCookie(c, 'refreshToken')
+        if (!refreshToken) {
+            throw new HTTPException(401, {
+                message: "Invalid refresh token",
+            })
+        }
+        
+        try {
+            const {
+                payload: { userId, role },
+            } = await jwtVerify<{ userId: number, role: Roles }>(
+                refreshToken,
+                new TextEncoder().encode(env.JWT_REFRESH_SECRET)
+            );
+            await generateNewJWTAndSetCookie(c, userId, role);
+            return c.json({success: true});
+        } catch {
+            throw new HTTPException(403, { message: "Token expired or invalid" });
+        }
     }
 }
 
