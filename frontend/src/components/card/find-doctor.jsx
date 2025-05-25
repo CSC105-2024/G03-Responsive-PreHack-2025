@@ -43,7 +43,7 @@ const FindDoctor = () => {
         <div className="grid grid-rows-1 gap-3 lg:grid-cols-3">
           {/*sysptoms*/}
           <Select>
-            <SelectTrigger className="w-[250px]">
+            <SelectTrigger className="w-[200px]">
               <SelectValue placeholder="Select your symptoms" />
             </SelectTrigger>
 
@@ -76,7 +76,7 @@ const FindDoctor = () => {
 
           {/*time*/}
           <Select>
-            <SelectTrigger className="w-[250px]">
+            <SelectTrigger className="w-[200px]">
               <SelectValue placeholder="Select time" />
             </SelectTrigger>
             <SelectContent>
@@ -93,7 +93,7 @@ const FindDoctor = () => {
               <Button
                 variant={"outline"}
                 className={cn(
-                  "w-[250px] justify-start text-left font-normal",
+                  "w-[200px] justify-start text-left font-normal",
                   !date && "text-muted-foreground"
                 )}
               >
@@ -109,8 +109,8 @@ const FindDoctor = () => {
                   setDate(selectedDate);
                   setOpen(false);
                 }}
-                disabled={(date) =>
-                  date > new Date() || date < new Date("1900-01-01")
+                disabled={(date) => 
+                    date < new Date("1900-01-01")
                 }
                 initialFocus
               />

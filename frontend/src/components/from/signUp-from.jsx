@@ -1,12 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import {useAuth} from "@/contexts/auth-context.jsx";
 
 const SignUpForm = () => {
+    const [isDoctor, setDoctor] = useState(false);
+    const [role, setRole] = useState("");
+    const [department, setDepartment] = useState("");
+    const { signUpUser } = useAuth()
+    
     const {
         register,
         handleSubmit,
@@ -15,6 +29,7 @@ const SignUpForm = () => {
     } = useForm({
         defaultValues: {
             name: "",
+            surname: "",
             email: "",
             password: "",
             passwordAgain: "",
@@ -26,37 +41,51 @@ const SignUpForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordAgain, setShowPasswordAgain] = useState(false);
 
-    // const submitForm = (data) => {
-    //     const newData = {
-    //         name: data.name,
-    //         email: data.email,
-    //         password: data.password,
-    //     };
-    // };
+    const submitForm = async (data) => {
+        const newData = {
+            username: data.name,
+            surname: data.surname,
+            email: data.email,
+            password: data.password,
+            department: department,
+            role: role,
+        };
+        await signUpUser(newData)
+    };
     
     return (
-        <form onSubmit={handleSubmit()} className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit(submitForm)} className="flex flex-col gap-5">
             <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-4xl font-bold">Welcome</h1>
                 <p className="text-sm text-muted-foreground text-balance">
                     Enter your information to signup to your account
                 </p>
             </div>
+            
+            <div className="grid grid-cols-2 gap-2">
+                <div>
+                    <Input
+                        id="name"
+                        type="text"
+                        placeholder="Username"
+                        {...register("name", { required: "Username is required" })}
+                    />
+                    <p className="text-sm text-red-500 mt-2">{errors.name?.message}</p>
+                </div>
 
-            {/* Username */}
-            <div className="grid gap-2">
-                <Label htmlFor="name">Username</Label>
-                <Input
-                    id="name"
-                    type="text"
-                    {...register("name", { required: "Username is required" })}
-                />
-                <p className="text-sm text-red-500">{errors.name?.message}</p>
+                <div>
+                    <Input
+                        id="surname"
+                        type="text"
+                        placeholder="Surname"
+                        {...register("surname", { required: "Surname is required" })}
+                    />
+                    <p className="text-sm text-red-500 mt-2">{errors.surname?.message}</p>
+                </div>
             </div>
 
             {/* Email */}
             <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
                 <Input
                     id="email"
                     type="text"
@@ -74,11 +103,11 @@ const SignUpForm = () => {
 
             {/* Password */}
             <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
                 <div className="relative">
                     <Input
                         id="password"
                         type={showPassword ? "text" : "password"}
+                        placeholder="Password"
                         className="pr-10"
                         {...register("password", {
                             required: "Password is required",
@@ -102,11 +131,11 @@ const SignUpForm = () => {
 
             {/* Confirm Password */}
             <div className="grid gap-2">
-                <Label htmlFor="passwordAgain">Confirm Password</Label>
                 <div className="relative">
                     <Input
                         id="passwordAgain"
                         type={showPasswordAgain ? "text" : "password"}
+                        placeholder="Password confirm"
                         className="pr-10"
                         {...register("passwordAgain", {
                             required: "Please confirm your password",
@@ -125,6 +154,59 @@ const SignUpForm = () => {
                 </div>
                 <p className="text-sm text-red-500">{errors.passwordAgain?.message}</p>
             </div>
+
+            <Select value={role} onValueChange={(value) => {
+                setRole(value)
+                setDoctor(value === "DOCTOR")
+            }}>
+                <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Role" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectGroup>
+                        <SelectLabel>Role</SelectLabel>
+                        <SelectItem value="DOCTOR">Doctor</SelectItem>
+                        <SelectItem value="PATIENT">Patient</SelectItem>
+                    </SelectGroup>
+                </SelectContent>
+            </Select>
+
+            {isDoctor && (
+                <Select value={department} onValueChange={setDepartment}>
+                    <SelectTrigger id="department" className="w-full">
+                        <SelectValue placeholder="Select a Department" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="internal-medicine">Internal Medicine</SelectItem>
+                        <SelectItem value="cardiology">Cardiology</SelectItem>
+                        <SelectItem value="pulmonology">Pulmonology</SelectItem>
+                        <SelectItem value="gastroenterology">Gastroenterology</SelectItem>
+                        <SelectItem value="endocrinology">Endocrinology</SelectItem>
+                        <SelectItem value="neurology">Neurology</SelectItem>
+                        <SelectItem value="general-surgery">General Surgery</SelectItem>
+                        <SelectItem value="orthopedics">Orthopedics</SelectItem>
+                        <SelectItem value="neurosurgery">Neurosurgery</SelectItem>
+                        <SelectItem value="plastic-surgery">Plastic Surgery</SelectItem>
+                        <SelectItem value="pediatrics">Pediatrics</SelectItem>
+                        <SelectItem value="obstetrics-gynecology">Obstetrics & Gynecology</SelectItem>
+                        <SelectItem value="psychiatry">Psychiatry</SelectItem>
+                        <SelectItem value="dermatology">Dermatology</SelectItem>
+                        <SelectItem value="ent-otolaryngology">ENT (Otolaryngology)</SelectItem>
+                        <SelectItem value="ophthalmology">Ophthalmology</SelectItem>
+                        <SelectItem value="dentistry">Dentistry</SelectItem>
+                        <SelectItem value="emergency-medicine">Emergency Medicine</SelectItem>
+                        <SelectItem value="rehabilitation-medicine">Rehabilitation Medicine</SelectItem>
+                        <SelectItem value="radiology">Radiology</SelectItem>
+                        <SelectItem value="pathology">Pathology</SelectItem>
+                        <SelectItem value="urology">Urology</SelectItem>
+                        <SelectItem value="nephrology">Nephrology</SelectItem>
+                        <SelectItem value="allergy-immunology">Allergy & Immunology</SelectItem>
+                        <SelectItem value="infectious-disease">Infectious Disease</SelectItem>
+                        <SelectItem value="occupational-medicine">Occupational Medicine</SelectItem>
+                        <SelectItem value="geriatrics">Geriatrics</SelectItem>
+                    </SelectContent>
+                </Select>
+            )}
 
             <Button
                 type="submit"

@@ -52,9 +52,15 @@ const CreateBook = () => {
   }, [loading]);
 
   return (
-    <Dialog open={openD} onOpenChange={setOpenD}>
+    <Dialog open={openD} onOpenChange={(open) => {
+      setOpenD(open);
+      if (!open) {
+        setTime("");       
+        setDate(new Date());
+      }
+    }}>
       <DialogTrigger asChild>
-        <Button variant="outline">Create</Button>
+        <Button>Create</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -105,7 +111,7 @@ const CreateBook = () => {
                     setDate(selectedDate);
                     setOpenC(false);
                   }}
-                  disabled={(date) => date < new Date("1900-01-01")}
+                  disabled={(date) =>  date < new Date("1900-01-01") || date < new Date()}
                   initialFocus
                 />
               </PopoverContent>

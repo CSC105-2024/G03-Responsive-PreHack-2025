@@ -78,7 +78,42 @@ class PostModelLo {
         //     })
         // }
         return post;
-    }   
+    }  
+
+    async findByDoctorId(id: number) {
+        const posts =  await prisma.posts.findMany({
+            where: {doctorId: id},
+            include: {
+                doctor: true,
+                confirms: true
+            }
+        })
+
+        return posts.map(post => ({
+            id: post.id,
+            start_time: post.start_time,
+            end_time: post.end_time,
+            post_date: post.post_date,
+            created_at: post.created_at,
+            doctor: post.doctor,
+            confirm: post.confirms.length > 0
+        }));
+    }
+    
+    async deleteById(id: number) {
+        try {
+            return await prisma.posts.delete({
+               where: {
+                   id
+               }
+           });
+        } catch (error) {
+           throw new HTTPException(404,{
+               message: 'Cannot delete post',
+               cause: {form: true},
+           })
+        }
+    }
 }
 
 const PostModel = new PostModelLo();

@@ -30,7 +30,6 @@ const DetailBookDocter = () => {
     <Card>
       <CardHeader>
         <CardDescription>12.00 - 13.00 AM</CardDescription>
-
         <CardTitle className="text-2xl flex justify-between">
           Gastroenterologists
           {isAvailable && (

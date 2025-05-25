@@ -1,7 +1,7 @@
 import {createUser, fetchUser, login, logout} from "@/apis/auth.api.jsx";
 
-export const signUp = async ({ username, surname, email, password, role }) => {
-    const body = { username, surname, email, password, role };
+export const signUp = async ({ username, surname, email, password, department, role }) => {
+    const body = { username, surname, email, password, department, role };
     return await createUser(body);
 };
 

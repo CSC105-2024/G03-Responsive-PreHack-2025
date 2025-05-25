@@ -37,12 +37,15 @@ export const AuthProvider = ({ children }) => {
         email,
         password,
         role,
+        department,
 }) =>{
         setLoading(true);
         try {
-            const response = await signUp({username, surname, email, password, role});
-            setUser(response?.data?.data);
-            return response?.data?.data;
+            const response = await signUp({username, surname, email, password, department, role});
+            if (response.success) {
+                setUser(response?.data?.data);
+                navigate('/');
+            }
         } finally {
             setLoading(false);
         }
@@ -59,8 +62,8 @@ export const AuthProvider = ({ children }) => {
                 
                 if (fetchResponse.success) {
                     setUser(fetchResponse?.data?.data);
+                    navigate('/');
                 }
-                navigate('/');
             }
             return response?.data?.data;
         } catch(error) {

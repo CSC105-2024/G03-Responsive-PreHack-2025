@@ -21,10 +21,11 @@ const Navbar = () => {
     await signOutUser()
     navigate("/");
   };
-  console.log(isAuth)
+
   return (
     <nav 
-        className="fixed w-full top-0 z-16 backdrop-blur-lg md:py-3 flex items-center justify-between px-16 py-3 bg-white/30"
+        className="fixed  w-full top-0 z-16 backdrop-blur-lg md:py-3 flex items-center justify-between px-16 py-3
+         isolate bg-white/20 shadow-lg ring-1 ring-black/5"
     >
       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
         <Link
@@ -43,27 +44,22 @@ const Navbar = () => {
               <DropdownMenuTrigger asChild>
                 <Button
                     variant="secondary"
-                    size="icon"
                     className="rounded-full "
                 >
                   <CircleUser className="h-5 w-5" />
-                  <span className="sr-only">Toggle user menu</span>
+                  <Separator orientation="vertical" />
+                  <span className="text-sm">{user?.[0]?.username}</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <Link to={`user/auth/dashboard`}>
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                </Link>
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   Log out
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <span className="text-sm">{user?.[0]?.username}</span>
-            <Separator orientation="vertical" />
           </div>
       ) : (
           <Button

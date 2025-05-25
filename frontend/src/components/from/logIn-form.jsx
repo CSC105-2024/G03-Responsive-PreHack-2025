@@ -37,11 +37,10 @@ const LogInForm = () => {
 
             <div className="grid gap-6">
                 <div className="grid gap-2">
-                    <Label htmlFor="username">Username</Label>
                     <Input
                         id="username"
                         type="text"
-                        placeholder="Enter username"
+                        placeholder="username"
                         {...register("username", {
                             required: "Username is required",
                             minLength: {
@@ -56,12 +55,12 @@ const LogInForm = () => {
                 </div>
                 
                 <div className="grid gap-2">
-                    <Label htmlFor="password">Password</Label>
                     <div className="relative">
                         <Input
                             id="password"
                             type={showPassword ? "text" : "password"}
                             className="pr-10"
+                            placeholder="password"
                             {...register("password", {
                                 required: "Password is required",
                                 minLength: {

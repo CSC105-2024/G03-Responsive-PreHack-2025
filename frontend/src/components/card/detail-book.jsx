@@ -33,19 +33,6 @@ const DetailBook = ({sym, doctor, date}) => {
         <CardDescription>{date}</CardDescription>
         <div className="flex justify-between">
           <CardTitle className="text-2xl">{sym}</CardTitle>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <EllipsisVertical size={32} />
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
         </div>
       </CardHeader>
       <CardContent>

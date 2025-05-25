@@ -1,9 +1,10 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
-import { newPost, getAllPost } from '../services/post.service';
-
+import { newPost, getAllPost, getPostDoctorSer, deletePostSer } from '../services/post.service';
+import { useAuth } from '@/contexts/auth-context.jsx';
 const PostContext = createContext();
 
 export const PostProvider = ({ children }) => {
+    const { user } = useAuth();
     const [loading, setLoading] = useState(false);
     const [post, setPost] = useState(null);
     const [error, setError] = useState("");
@@ -12,7 +13,9 @@ export const PostProvider = ({ children }) => {
         setLoading(true);
         const getPost = async () =>{
             try {
-                const response = await getAllPost();
+                const response = user[0].role === "DOCTOR"
+                    ? await getPostDoctorSer()
+                    : await getAllPost()
                 if (response.success) {
                     setPost(response?.data?.data);
                 }
@@ -35,7 +38,22 @@ export const PostProvider = ({ children }) => {
             }
         } catch (error) {
             setPost(null);
-            setError(error.response.error);
+            setError(error?.response?.error);
+        } finally {
+            setLoading(false);
+        }
+    }
+    
+    const deletePostUser = async ({id}) => {
+        try {
+            setLoading(true);
+            const response = await deletePostSer({id});
+            if (response.success) {
+                const allPosts = await getAllPost();
+                setPost(allPosts?.data?.data);
+            }
+        } catch (error) {
+            setError(error?.response?.error);
         } finally {
             setLoading(false);
         }
@@ -47,6 +65,7 @@ export const PostProvider = ({ children }) => {
             error,
             post,
             createPost,
+            deletePostUser,
         }}>
             {children}
         </PostContext.Provider>

@@ -1,25 +1,35 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useAuth } from "@/contexts/auth-context.jsx";
 
-const FindDoctor = () => {
+const DetailDoctor = () => {
+  const { user } = useAuth();
   return (
-    <div className="flex justify-center lg:w-full w-70">
-      <Card className="w-full max-w-3xl">
+      <Card>
         <CardHeader className="flex justify-center">
-          <CardTitle className="lg:text-4xl text-3xl">Your information</CardTitle>
+          <CardTitle className="text-2xl">Your information</CardTitle>
         </CardHeader>
-        <CardContent className="lg:mx-10">
-          <div className="lg:mb-4">
-            <p className="lg:text-2xl font-bold">Name</p>
-            <p>Dr. Very Niceguy</p>
-          </div>
-          <div>
-            <p className="lg:text-2xl font-bold">Department</p>
-            <p>Gastroenterologist</p>
+        <CardContent>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-sm text-muted-foreground">First Name</p>
+              <p>Dr. {user[0]?.username}</p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Last Name</p>
+              <p>{user[0]?.surname}</p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Email address</p>
+              <p>{user[0]?.email}</p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Department</p>
+              <p>{user[0]?.department}</p>
+            </div>
           </div>
         </CardContent>
       </Card>
-    </div>
   );
 };
 
-export default FindDoctor;
+export default DetailDoctor;
