@@ -25,14 +25,18 @@ import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar.jsx";
 import { useState } from "react";
+import {useAuth} from "@/contexts/auth-context.jsx";
+import {useNavigate} from "react-router-dom";
 
 const FindDoctor = () => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const {isAuth} = useAuth();
+  const navigate = useNavigate();
 
   return (
-    <Card>
+    <Card className="bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
       <CardHeader>
         <CardTitle className="text-2xl">Let’s Find Your Doctor</CardTitle>
         <CardDescription>
@@ -43,7 +47,7 @@ const FindDoctor = () => {
         <div className="grid grid-rows-1 gap-3 lg:grid-cols-3">
           {/*sysptoms*/}
           <Select>
-            <SelectTrigger className="w-[200px]">
+            <SelectTrigger className="w-[300px]">
               <SelectValue placeholder="Select your symptoms" />
             </SelectTrigger>
 
@@ -76,7 +80,7 @@ const FindDoctor = () => {
 
           {/*time*/}
           <Select>
-            <SelectTrigger className="w-[200px]">
+            <SelectTrigger className="w-[300px]">
               <SelectValue placeholder="Select time" />
             </SelectTrigger>
             <SelectContent>
@@ -93,7 +97,7 @@ const FindDoctor = () => {
               <Button
                 variant={"outline"}
                 className={cn(
-                  "w-[200px] justify-start text-left font-normal",
+                  "w-[300px] justify-start text-left font-normal",
                   !date && "text-muted-foreground"
                 )}
               >
@@ -120,7 +124,15 @@ const FindDoctor = () => {
       </CardContent>
       <CardFooter>
         <div className="space-x-2 w-full flex justify-end ">
-          <Button>Search</Button>
+          <Button
+              onClick={() => {
+                if (!isAuth) {
+                  navigate("/system/sign-in");
+                }
+              }}
+          >
+            Search
+          </Button>
           <Button variant={"outline"}>Clear</Button>
         </div>
       </CardFooter>
