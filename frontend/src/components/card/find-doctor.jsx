@@ -31,7 +31,7 @@ import {useNavigate} from "react-router-dom";
 const FindDoctor = () => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const [time, setTime] = useState("");
   const {isAuth} = useAuth();
   const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ const FindDoctor = () => {
         <div className="grid grid-rows-1 gap-3 lg:grid-cols-3">
           {/*sysptoms*/}
           <Select>
-            <SelectTrigger className="w-[300px]">
+            <SelectTrigger className="w-full bg-white">
               <SelectValue placeholder="Select your symptoms" />
             </SelectTrigger>
 
@@ -79,15 +79,15 @@ const FindDoctor = () => {
           </Select>
 
           {/*time*/}
-          <Select>
-            <SelectTrigger className="w-[300px]">
+          <Select value={time} onValueChange={setTime}>
+            <SelectTrigger className="w-full bg-white">
               <SelectValue placeholder="Select time" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="1">8:00 - 10:00</SelectItem>
-              <SelectItem value="2">10:00 - 12:00</SelectItem>
-              <SelectItem value="3">13:00 - 15:00</SelectItem>
-              <SelectItem value="4">15:00 - 17:00</SelectItem>
+              <SelectItem value="8:00-10:00">8:00 - 10:00</SelectItem>
+              <SelectItem value="10:00-12:00">10:00 - 12:00</SelectItem>
+              <SelectItem value="13:00-15:00">13:00 - 15:00</SelectItem>
+              <SelectItem value="15:00-17:00">15:00 - 17:00</SelectItem>
             </SelectContent>
           </Select>
 
@@ -97,7 +97,7 @@ const FindDoctor = () => {
               <Button
                 variant={"outline"}
                 className={cn(
-                  "w-[300px] justify-start text-left font-normal",
+                  "w-full justify-start text-left font-normal",
                   !date && "text-muted-foreground"
                 )}
               >
@@ -133,7 +133,14 @@ const FindDoctor = () => {
           >
             Search
           </Button>
-          <Button variant={"outline"}>Clear</Button>
+          <Button 
+              variant={"outline"}
+              onClick={() => {
+                setTime("")
+              }}
+          >
+            Clear
+          </Button>
         </div>
       </CardFooter>
     </Card>

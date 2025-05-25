@@ -13,7 +13,7 @@ export const PostProvider = ({ children }) => {
         setLoading(true);
         const getPost = async () =>{
             try {
-                const response = user[0].role === "DOCTOR"
+                const response = user?.[0]?.role === "DOCTOR"
                     ? await getPostDoctorSer()
                     : await getAllPost()
                 if (response.success) {
