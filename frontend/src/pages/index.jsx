@@ -1,9 +1,9 @@
-import Home from '@/components/modules/home.jsx';
+import {DashboardMo} from "@/components/modules/index.js";
 
 const Index = () => {
     return (
         <>
-          <Home />
+          <DashboardMo />
         </>
     )
 }

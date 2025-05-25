@@ -4,7 +4,7 @@ import { useAuth } from "@/contexts/auth-context.jsx";
 const DetailDoctor = () => {
   const { user } = useAuth();
   return (
-      <Card>
+      <Card className=" bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
         <CardHeader className="flex justify-center">
           <CardTitle className="text-2xl">Your information</CardTitle>
         </CardHeader>
