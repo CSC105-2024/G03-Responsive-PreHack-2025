@@ -16,7 +16,6 @@ import {useAuth} from "@/contexts/auth-context.jsx";
 const Navbar = () => {
   const navigate = useNavigate();
   const { isAuth, user, signOutUser, loading } = useAuth();
-
   const handleLogout = async () => {
     await signOutUser()
     navigate("/");

@@ -9,7 +9,7 @@ const DetailDoctor = () => {
           <CardTitle className="text-2xl">Your information</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             <div>
               <p className="text-sm text-muted-foreground">First Name</p>
               <p>Dr. {user[0]?.username}</p>
