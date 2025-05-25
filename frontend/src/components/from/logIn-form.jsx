@@ -62,6 +62,7 @@ const LogInForm = () => {
                             id="password"
                             type={showPassword ? "text" : "password"}
                             className="pr-10"
+                            placeholder="Enter password"
                             {...register("password", {
                                 required: "Password is required",
                                 minLength: {

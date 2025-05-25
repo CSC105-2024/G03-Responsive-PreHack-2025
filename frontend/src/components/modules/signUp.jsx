@@ -1,15 +1,17 @@
 import { SquareArrowLeft } from "lucide-react";
 import { SignUpForm } from "@/components/from";
 import { Link, useNavigate } from "react-router-dom";
+import doc from "../../assets/doc.png";
+
 
 const SignUpMo = () => {
     const navigate = useNavigate();
 
     return (
         <div className="grid min-h-svh lg:grid-cols-2">
-            <div className="flex flex-col gap-4 p-6 md:p-10">
-                <div className="flex justify-center gap-2 md:justify-start">
-                    <Link to="/" className="flex items-center text-xl">
+            <div className="flex flex-col gap-10 p-6 md:p-10">
+                <div className="flex justify-center gap-2 md:justify-start ">
+                    <Link to="/" className="flex items-center text-3xl">
                         <span className="text-cyan-500 font-bold">D</span>
                         <span>ocOnTime</span>
                     </Link>
@@ -29,7 +31,7 @@ const SignUpMo = () => {
 
             <div className="relative bg-muted lg:block hidden">
                 <img
-                    src={''}
+                    src={doc}
                     alt="Image"
                     className="absolute inset-0 h-full w-full object-cover "
                 />

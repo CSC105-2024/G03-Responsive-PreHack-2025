@@ -3,8 +3,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 
 const SignUpForm = () => {
     const {
@@ -25,6 +27,8 @@ const SignUpForm = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordAgain, setShowPasswordAgain] = useState(false);
+    const [selectedRole, setSelectedRole] = useState("");
+
 
     // const submitForm = (data) => {
     //     const newData = {
@@ -44,11 +48,12 @@ const SignUpForm = () => {
             </div>
 
             {/* Username */}
-            <div className="grid gap-2">
+            <div className="grid gap-1">
                 <Label htmlFor="name">Username</Label>
                 <Input
                     id="name"
                     type="text"
+                    placeholder="Enter your username"
                     {...register("name", { required: "Username is required" })}
                 />
                 <p className="text-sm text-red-500">{errors.name?.message}</p>
@@ -60,7 +65,7 @@ const SignUpForm = () => {
                 <Input
                     id="email"
                     type="text"
-                    placeholder="m@example.com"
+                    placeholder="Enter your email"
                     {...register("email", {
                         required: "Email is required",
                         pattern: {
@@ -80,6 +85,7 @@ const SignUpForm = () => {
                         id="password"
                         type={showPassword ? "text" : "password"}
                         className="pr-10"
+                        placeholder="Enter your password"
                         {...register("password", {
                             required: "Password is required",
                             minLength: {
@@ -108,6 +114,7 @@ const SignUpForm = () => {
                         id="passwordAgain"
                         type={showPasswordAgain ? "text" : "password"}
                         className="pr-10"
+                        placeholder="Confirm your password"
                         {...register("passwordAgain", {
                             required: "Please confirm your password",
                             validate: (value) =>
@@ -125,7 +132,62 @@ const SignUpForm = () => {
                 </div>
                 <p className="text-sm text-red-500">{errors.passwordAgain?.message}</p>
             </div>
+            {/* Role */}
+            <div className="grid gap-2">
+            <Label htmlFor="role">Select a Role</Label>
+            <Select onValueChange={(value) => setSelectedRole(value)}>
+                <SelectTrigger id="role" className="w-full">
+                <SelectValue placeholder="Select a Role" />
+                </SelectTrigger>
+                <SelectContent>
+                <SelectItem value="doctor">Doctor</SelectItem>
+                <SelectItem value="patient">Patient</SelectItem>
+                </SelectContent>
+            </Select>
+            </div>
 
+            {/* Department - โชว์เฉพาะเมื่อเลือก role เป็น doctor */}
+            {selectedRole === "doctor" && (
+            <div className="grid gap-2">
+                <Label htmlFor="department">Select a Department</Label>
+                <Select>
+                <SelectTrigger id="department" className="w-full">
+                    <SelectValue placeholder="Select a Department" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="internal-medicine">Internal Medicine</SelectItem>
+                    <SelectItem value="cardiology">Cardiology</SelectItem>
+                    <SelectItem value="pulmonology">Pulmonology</SelectItem>
+                    <SelectItem value="gastroenterology">Gastroenterology</SelectItem>
+                    <SelectItem value="endocrinology">Endocrinology</SelectItem>
+                    <SelectItem value="neurology">Neurology</SelectItem>
+                    <SelectItem value="general-surgery">General Surgery</SelectItem>
+                    <SelectItem value="orthopedics">Orthopedics</SelectItem>
+                    <SelectItem value="neurosurgery">Neurosurgery</SelectItem>
+                    <SelectItem value="plastic-surgery">Plastic Surgery</SelectItem>
+                    <SelectItem value="pediatrics">Pediatrics</SelectItem>
+                    <SelectItem value="obstetrics-gynecology">Obstetrics & Gynecology</SelectItem>
+                    <SelectItem value="psychiatry">Psychiatry</SelectItem>
+                    <SelectItem value="dermatology">Dermatology</SelectItem>
+                    <SelectItem value="ent-otolaryngology">ENT (Otolaryngology)</SelectItem>
+                    <SelectItem value="ophthalmology">Ophthalmology</SelectItem>
+                    <SelectItem value="dentistry">Dentistry</SelectItem>
+                    <SelectItem value="emergency-medicine">Emergency Medicine</SelectItem>
+                    <SelectItem value="rehabilitation-medicine">Rehabilitation Medicine</SelectItem>
+                    <SelectItem value="radiology">Radiology</SelectItem>
+                    <SelectItem value="pathology">Pathology</SelectItem>
+                    <SelectItem value="urology">Urology</SelectItem>
+                    <SelectItem value="nephrology">Nephrology</SelectItem>
+                    <SelectItem value="allergy-immunology">Allergy & Immunology</SelectItem>
+                    <SelectItem value="infectious-disease">Infectious Disease</SelectItem>
+                    <SelectItem value="occupational-medicine">Occupational Medicine</SelectItem>
+                    <SelectItem value="geriatrics">Geriatrics</SelectItem>
+                </SelectContent>
+                </Select>
+            </div>
+            )}
+
+            {/* Submit Button */}
             <Button
                 type="submit"
                 className="w-full"
