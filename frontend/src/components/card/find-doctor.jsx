@@ -25,35 +25,15 @@ import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar.jsx";
 import { useState } from "react";
-import { usePost } from "@/contexts/post-context.jsx";
+import {useAuth} from "@/contexts/auth-context.jsx";
+import {useNavigate} from "react-router-dom";
+
 const FindDoctor = () => {
-  const { setFilters } = usePost();
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
-  const [symptoms, setSymptoms] = useState("");
   const [time, setTime] = useState("");
-
-  const handleSearch = () => {
-    const filterData = {
-      date: date,
-      time: time,
-      symptoms: symptoms,
-    };
-    console.log("Filter Data:", filterData);
-    setFilters(filterData);
-  };
-
-  const handleClear = () => {
-    setSymptoms("");
-    setTime("");
-    setDate(new Date());
-    setFilters({
-      date: null,
-      time: "",
-      symptoms: "",
-    });
-    console.log("Clear all filters");
-  };
+  const {isAuth} = useAuth();
+  const navigate = useNavigate();
 
   return (
     <Card className="bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
@@ -66,56 +46,48 @@ const FindDoctor = () => {
       <CardContent>
         <div className="grid grid-rows-1 gap-3 lg:grid-cols-3">
           {/*sysptoms*/}
-          <Select value={symptoms} onValueChange={setSymptoms}>
-            <SelectTrigger className="w-[200px]">
+          <Select>
+            <SelectTrigger className="w-full bg-white">
               <SelectValue placeholder="Select your symptoms" />
             </SelectTrigger>
+
             <SelectContent className="p-0">
               <ScrollArea className="max-h-60 scroll-area">
-                <SelectItem value="neurology">Headache</SelectItem>
-                <SelectItem value="gastroenterology">Stomach ache</SelectItem>
-                <SelectItem value="internal-medicine">Fever</SelectItem>
-                <SelectItem value="pulmonology">Cough / Sore throat</SelectItem>
-                <SelectItem value="dermatology">Rash / Itching</SelectItem>
-                <SelectItem value="orthopedics">
-                  Joint pain / Back pain
-                </SelectItem>
-                <SelectItem value="dentistry">
-                  Toothache / Swollen gums
-                </SelectItem>
-                <SelectItem value="ophthalmology">
-                  Red eyes / Blurred vision
-                </SelectItem>
-                <SelectItem value="ent-otolaryngology">
-                  Ear ringing / Dizziness
-                </SelectItem>
-                <SelectItem value="cardiology">
-                  Chest pain / Palpitations
-                </SelectItem>
-                <SelectItem value="obstetrics-gynecology">
+                <SelectItem value="1">Headache</SelectItem>
+                <SelectItem value="2">Stomach ache</SelectItem>
+                <SelectItem value="3">Fever</SelectItem>
+                <SelectItem value="4">Cough / Sore throat</SelectItem>
+                <SelectItem value="5">Rash / Itching</SelectItem>
+                <SelectItem value="6">Joint pain / Back pain</SelectItem>
+                <SelectItem value="7">Toothache / Swollen gums</SelectItem>
+                <SelectItem value="8">Red eyes / Blurred vision</SelectItem>
+                <SelectItem value="9">Ear ringing / Dizziness</SelectItem>
+                <SelectItem value="10">Chest pain / Palpitations</SelectItem>
+                <SelectItem value="11">
                   Irregular menstruation / Menstrual cramps
                 </SelectItem>
-                <SelectItem value="pediatrics">
+                <SelectItem value="12">
+                  Family planning / Pregnancy check-up
+                </SelectItem>
+                <SelectItem value="13">
                   Sick children / Cough with fever
                 </SelectItem>
-                <SelectItem value="psychiatry">Anxiety / Depression</SelectItem>
-                <SelectItem value="internal-medicine">
-                  Annual health check-up
-                </SelectItem>
+                <SelectItem value="14">Anxiety / Depression</SelectItem>
+                <SelectItem value="15">Annual health check-up</SelectItem>
               </ScrollArea>
             </SelectContent>
           </Select>
 
           {/*time*/}
           <Select value={time} onValueChange={setTime}>
-            <SelectTrigger className="w-[200px]">
+            <SelectTrigger className="w-full bg-white">
               <SelectValue placeholder="Select time" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="1">8:00 - 10:00</SelectItem>
-              <SelectItem value="2">10:00 - 12:00</SelectItem>
-              <SelectItem value="3">13:00 - 15:00</SelectItem>
-              <SelectItem value="4">15:00 - 17:00</SelectItem>
+              <SelectItem value="8:00-10:00">8:00 - 10:00</SelectItem>
+              <SelectItem value="10:00-12:00">10:00 - 12:00</SelectItem>
+              <SelectItem value="13:00-15:00">13:00 - 15:00</SelectItem>
+              <SelectItem value="15:00-17:00">15:00 - 17:00</SelectItem>
             </SelectContent>
           </Select>
 
@@ -125,7 +97,7 @@ const FindDoctor = () => {
               <Button
                 variant={"outline"}
                 className={cn(
-                  "w-[300px] justify-start text-left font-normal",
+                  "w-full justify-start text-left font-normal",
                   !date && "text-muted-foreground"
                 )}
               >
@@ -141,7 +113,9 @@ const FindDoctor = () => {
                   setDate(selectedDate);
                   setOpen(false);
                 }}
-                disabled={(date) => date < new Date("1900-01-01")}
+                disabled={(date) => 
+                    date < new Date("1900-01-01")
+                }
                 initialFocus
               />
             </PopoverContent>
@@ -150,8 +124,21 @@ const FindDoctor = () => {
       </CardContent>
       <CardFooter>
         <div className="space-x-2 w-full flex justify-end ">
-          <Button onClick={handleSearch}>Search</Button>
-          <Button variant={"outline"} onClick={handleClear}>
+          <Button
+              onClick={() => {
+                if (!isAuth) {
+                  navigate("/system/sign-in");
+                }
+              }}
+          >
+            Search
+          </Button>
+          <Button 
+              variant={"outline"}
+              onClick={() => {
+                setTime("")
+              }}
+          >
             Clear
           </Button>
         </div>
