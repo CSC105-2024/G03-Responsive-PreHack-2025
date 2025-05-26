@@ -60,13 +60,13 @@ const CreateBook = () => {
       }
     }}>
       <DialogTrigger asChild>
-        <Button>Create</Button>
+        <Button className="mb-10 md:mb-0">Create</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add post</DialogTitle>
+          <DialogTitle>Create New Appointment Slot</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+             Set up a new time slot for patient appointments
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -79,7 +79,7 @@ const CreateBook = () => {
                 <SelectValue placeholder="Select time" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="8:00-10:00">8:00 - 10:00</SelectItem>
+                <SelectItem value="08:00-10:00">8:00 - 10:00</SelectItem>
                 <SelectItem value="10:00-12:00">10:00 - 12:00</SelectItem>
                 <SelectItem value="13:00-15:00">13:00 - 15:00</SelectItem>
                 <SelectItem value="15:00-17:00">15:00 - 17:00</SelectItem>

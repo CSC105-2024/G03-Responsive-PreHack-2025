@@ -31,7 +31,7 @@ const SignUpMo = () => {
 
             <div className="relative bg-muted lg:block hidden">
                 <img
-                    src={doc}
+                    src="https://i.pinimg.com/736x/6c/6e/d7/6c6ed7f4011b7f926b3f1505475aba16.jpg"
                     alt="Image"
                     className="absolute inset-0 h-full w-full object-cover "
                 />

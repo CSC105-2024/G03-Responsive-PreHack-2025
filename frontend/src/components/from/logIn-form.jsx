@@ -82,12 +82,7 @@ const LogInForm = () => {
                         <p className="text-sm text-red-500">{errors.password.message}</p>
                     )}
 
-                    <span
-                        className="ml-auto text-sm underline underline-offset-4 text-purple-700 hover:underline cursor-pointer"
-                        onClick={() => navigate("/user/unauth/forgetpassword")}
-                    >
-            Forgot your password?
-          </span>
+                    
                 </div>
                 
                 <Button

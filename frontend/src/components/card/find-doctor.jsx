@@ -65,88 +65,120 @@ const FindDoctor = () => {
   };
 
   return (
-    <Card className="bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
-      <CardHeader>
-        <CardTitle className="text-2xl">Let's Find Your Doctor</CardTitle>
-        <CardDescription>
+    <Card className="shadow-xl border-0 bg-gradient-to-br from-blue-50 via-white to-indigo-50 backdrop-blur-lg">
+      <CardHeader className="text-center pb-6">
+        <CardTitle className="text-3xl font-bold text-gray-800 mb-2">
+          Let's Find Your Doctor
+        </CardTitle>
+        <CardDescription className="text-lg text-gray-600">
           Just a few steps to connect with the doctor that's right for you.
         </CardDescription>
+        <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-indigo-500 rounded mx-auto mt-2"></div>
       </CardHeader>
-      <CardContent>
-        <div className="grid grid-rows-1 gap-3 lg:grid-cols-3">
+
+      <CardContent className="px-8 pb-8">
+        <div className="grid grid-rows-1 gap-6 lg:grid-cols-3">
           {/*symptoms*/}
-          <Select value={symptoms} onValueChange={setSymptoms}>
-            <SelectTrigger className="w-full bg-white">
-              <SelectValue placeholder="Select your symptoms" />
-            </SelectTrigger>
-            <SelectContent className="p-0">
-              <ScrollArea className="max-h-60 scroll-area">
-                <SelectItem value="neurology">Headache</SelectItem>
-                <SelectItem value="gastroenterology">Stomach ache</SelectItem>
-                <SelectItem value="internal-medicine">Fever</SelectItem>
-                <SelectItem value="pulmonology">Cough / Sore throat</SelectItem>
-                <SelectItem value="dermatology">Rash / Itching</SelectItem>
-                <SelectItem value="orthopedics">Joint pain / Back pain</SelectItem>
-                <SelectItem value="dentistry">Toothache / Swollen gums</SelectItem>
-                <SelectItem value="ophthalmology">Red eyes / Blurred vision</SelectItem>
-                <SelectItem value="ent-otolaryngology">Ear ringing / Dizziness</SelectItem>
-                <SelectItem value="cardiology">Chest pain / Palpitations</SelectItem>
-                <SelectItem value="obstetrics-gynecology">
-                  Irregular menstruation / Menstrual cramps
-                </SelectItem>
-                <SelectItem value="pediatrics">
-                  Sick children / Cough with fever
-                </SelectItem>
-                <SelectItem value="psychiatry">Anxiety / Depression</SelectItem>
-                <SelectItem value="internal-medicine">
-                  Annual health check-up
-                </SelectItem>
-              </ScrollArea>
-            </SelectContent>
-          </Select>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">
+              Symptoms
+            </label>
+            <Select value={symptoms} onValueChange={setSymptoms}>
+              <SelectTrigger className="w-full bg-white">
+                <SelectValue placeholder="Select your symptoms" />
+              </SelectTrigger>
+              <SelectContent className="p-0">
+                <ScrollArea className="max-h-60 scroll-area">
+                  <SelectItem value="neurology">Headache</SelectItem>
+                  <SelectItem value="gastroenterology">Stomach ache</SelectItem>
+                  <SelectItem value="internal-medicine">Fever</SelectItem>
+                  <SelectItem value="pulmonology">
+                    Cough / Sore throat
+                  </SelectItem>
+                  <SelectItem value="dermatology">Rash / Itching</SelectItem>
+                  <SelectItem value="orthopedics">
+                    Joint pain / Back pain
+                  </SelectItem>
+                  <SelectItem value="dentistry">
+                    Toothache / Swollen gums
+                  </SelectItem>
+                  <SelectItem value="ophthalmology">
+                    Red eyes / Blurred vision
+                  </SelectItem>
+                  <SelectItem value="ent-otolaryngology">
+                    Ear ringing / Dizziness
+                  </SelectItem>
+                  <SelectItem value="cardiology">
+                    Chest pain / Palpitations
+                  </SelectItem>
+                  <SelectItem value="obstetrics-gynecology">
+                    Irregular menstruation / Menstrual cramps
+                  </SelectItem>
+                  <SelectItem value="pediatrics">
+                    Sick children / Cough with fever
+                  </SelectItem>
+                  <SelectItem value="psychiatry">
+                    Anxiety / Depression
+                  </SelectItem>
+                  <SelectItem value="internal-medicine">
+                    Annual health check-up
+                  </SelectItem>
+                </ScrollArea>
+              </SelectContent>
+            </Select>
+          </div>
 
           {/*time*/}
-          <Select value={time} onValueChange={setTime}>
-            <SelectTrigger className="w-full bg-white">
-              <SelectValue placeholder="Select time" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="1">8:00 - 10:00</SelectItem>
-              <SelectItem value="2">10:00 - 12:00</SelectItem>
-              <SelectItem value="3">13:00 - 15:00</SelectItem>
-              <SelectItem value="4">15:00 - 17:00</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">
+              Time Slot
+            </label>
+            <Select value={time} onValueChange={setTime}>
+              <SelectTrigger className="w-full bg-white">
+                <SelectValue placeholder="Select time" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">8:00 - 10:00</SelectItem>
+                <SelectItem value="2">10:00 - 12:00</SelectItem>
+                <SelectItem value="3">13:00 - 15:00</SelectItem>
+                <SelectItem value="4">15:00 - 17:00</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
           {/*calendar*/}
-          <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant={"outline"}
-                className={cn(
-                  "w-full justify-start text-left font-normal bg-white",
-                  !date && "text-muted-foreground"
-                )}
-              >
-                <CalendarIcon />
-                {date ? format(date, "PPP") : <span>Pick a date</span>}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={(selectedDate) => {
-                  setDate(selectedDate);
-                  setOpen(false);
-                }}
-                disabled={(date) => date < new Date("1900-01-01")}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">Date</label>
+            <Popover open={open} onOpenChange={setOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "w-full justify-start text-left font-normal bg-white",
+                    !date && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon />
+                  {date ? format(date, "PPP") : <span>Pick a date</span>}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={(selectedDate) => {
+                    setDate(selectedDate);
+                    setOpen(false);
+                  }}
+                  disabled={(date) => date < new Date("1900-01-01")}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
         </div>
       </CardContent>
+
       <CardFooter>
         <div className="space-x-2 w-full flex justify-end">
           <Button onClick={handleSearch}>Search</Button>
