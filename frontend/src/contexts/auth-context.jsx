@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
             const response = await signUp({username, surname, email, password, department, role});
             if (response.success) {
                 setUser(response?.data?.data);
-                navigate('/');
+                navigate('/system/sign-in');
             }
         } finally {
             setLoading(false);
