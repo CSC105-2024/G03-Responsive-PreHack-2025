@@ -1,68 +1,43 @@
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { CircleUserRound } from "lucide-react";
 import { Button } from "@/components/ui/button.jsx";
 import { Badge } from "@/components/ui/badge.jsx";
 import { EllipsisVertical } from "lucide-react";
+import { useConfirm } from "@/contexts/confirm-context.jsx";
 
-const DetailBook = ({ sym, doctor, date, status }) => {
-  return (
-    <Card>
-      <CardHeader>
-        <CardDescription>{date}</CardDescription>
-        <div className="flex justify-between">
-          <CardTitle className="text-2xl">{sym}</CardTitle> 
-          {!status && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <EllipsisVertical size={32} />
-                  <span className="sr-only">Toggle user menu</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Delete</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
-        </div>
-      </CardHeader>
-      <CardContent>
-        <CardDescription>
-          <div className="flex items-center space-x-2">
-            <CircleUserRound />
-            <p>{doctor}</p>
-          </div>
-        </CardDescription>
-      </CardContent>
-      <CardFooter className="flex justify-end">
-        {status ? (
-          <Button>Book</Button>
-        ) : (
-          <Badge className="bg-orange-400 hover:bg-orange-500">Booked</Badge>
-        )}
-      </CardFooter>
-    </Card>
-  );
+const DetailBook = ({ sym, doctor, date, status, id }) => {
+    const { createConfirm } = useConfirm();
+    return (
+        <Card>
+            <CardContent className="grid md:grid-cols-2 items-center gap-4">
+                <div>
+                    <CardDescription className="mb-2">{date}</CardDescription>
+                    <CardTitle className="text-2xl mb-2">{sym}</CardTitle>
+                    <div className="flex items-center space-x-2">
+                        <CircleUserRound />
+                        <p>{doctor}</p>
+                    </div>
+                </div>
+                
+                <div className="flex justify-end items-center h-full">
+                    {status ? (
+                        <Button onClick={() => {
+                            createConfirm({postId: id});
+                        }}>Book</Button>
+                    ) : (
+                        <Badge variant={`${!status ? 'confirm' : 'unConfirm'}`}>Booked</Badge>
+                    )}
+                </div>
+            </CardContent>
+        </Card>
+    );
 };
+
 export default DetailBook;

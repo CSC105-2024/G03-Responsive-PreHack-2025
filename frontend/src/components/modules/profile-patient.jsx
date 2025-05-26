@@ -1,6 +1,6 @@
 import React from "react";
 import DetailPatient from "@/components/card/detail-patient";
-import ListBook from "@/components/list/list-book";
+import ListBookDoctor from "@/components/list/list-bookDoctor.jsx";
 
 const ProfilePatient = () => {
   return (
@@ -9,7 +9,7 @@ const ProfilePatient = () => {
         <DetailPatient />
       </div>
       <p className="text-3xl">Your Appointments</p>
-      <ListBook Available={false} />
+      <ListBookDoctor Available={false} />
     </div>
   );
 };

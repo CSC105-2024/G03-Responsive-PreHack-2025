@@ -3,6 +3,7 @@ import {
     UserController,
     AuthController,
     PostController,
+    ConfirmController
 } from "../controllers/index.js";
 import {
     validateMiddleware,
@@ -28,5 +29,9 @@ api.get('/posts/all', (c) => PostController.findMany(c))
 api.post('/posts', authMiddleware, (c) => PostController.create(c))
 api.get('/posts/doctor', authMiddleware, (c) => PostController.findByDoctorId(c))
 api.delete('/posts', (c) => PostController.deleteById(c))
+
+//confirm
+api.get('/confirms', authMiddleware, (c) => ConfirmController.getById(c))
+api.post('/confirms', authMiddleware, (c) => ConfirmController.create(c))
 
 export { api }

@@ -33,7 +33,24 @@ const authMiddleware = createMiddleware(async (c, next) => {
             } = await jwtVerify<{ userId: number, role: Roles }>(
                 refreshToken,
                 new TextEncoder().encode(env.JWT_REFRESH_SECRET)
-            );
+            );try {
+                const {
+                    payload: { userId, role },
+                } = await jwtVerify<{ userId: number, role: Roles }>(
+                    refreshToken,
+                    new TextEncoder().encode(env.JWT_REFRESH_SECRET)
+                );
+
+                await generateNewJWTAndSetCookie(c, userId, role);
+                c.set("userId", userId);
+                c.set("role", role);
+                await next();
+            } catch {
+
+                deleteCookie(c, "accessToken", { httpOnly: true });
+                deleteCookie(c, "refreshToken", { httpOnly: true });
+                throw new HTTPException(401, { message: "Unauthorized " });
+            }
 
             await generateNewJWTAndSetCookie(c, userId, role);
             c.set("userId", userId);

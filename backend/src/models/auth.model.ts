@@ -5,6 +5,7 @@ import {generateNewJWTAndSetCookie} from "../utils/jwt.util.js";
 import {deleteCookie, getCookie} from "hono/cookie";
 import { jwtVerify } from 'jose'
 import {env} from "process";
+import { Roles } from "../types/index.js";
 
 class AuthModelLo {
     async login (username: string, password: string, c: Context) {

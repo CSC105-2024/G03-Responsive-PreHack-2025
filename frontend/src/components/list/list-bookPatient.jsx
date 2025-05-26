@@ -4,8 +4,12 @@ import { CardContent, Card } from "@/components/ui/card";
 import { DetailBook } from "../card";
 import { usePost } from "@/contexts/post-context.jsx";
 import { format } from "date-fns";
-const ListBooked = () => {
+import {useConfirm} from "@/contexts/confirm-context.jsx";
+const ListBookPatient = () => {
   const { post, filters } = usePost();
+  const { confirm } = useConfirm()
+  console.log(confirm)
+  
   const availableBookings = useMemo(() => {
     if (!post) return [];
 
@@ -51,10 +55,6 @@ const ListBooked = () => {
       return true;
     });
   }, [post, filters]);
-  const bookingHistory = [];
-  console.log("All posts:", post);
-  console.log("Available bookings:", availableBookings);
-  console.log("Booking history:", bookingHistory);
   return (
     <div>
       <Tabs defaultValue="Book">
@@ -68,10 +68,11 @@ const ListBooked = () => {
         </TabsList>
 
         <TabsContent value="Book">
-          <Card className="min-h-screen">
+          <Card>
             <CardContent className="p-6">
               {availableBookings.map((p) => {
                 const time = `${p.start_time} - ${p.end_time}`;
+                console.log(p.id)
                 return (
                   <div key={p.id} className="mb-3">
                     <DetailBook
@@ -79,6 +80,7 @@ const ListBooked = () => {
                       date={time}
                       doctor={p.doctor?.username}
                       status={p.confirms?.[0]?.confirm || true}
+                      id={p.id}
                     />
                   </div>
                 );
@@ -90,15 +92,16 @@ const ListBooked = () => {
         <TabsContent value="History">
           <Card className="min-h-screen">
             <CardContent className="p-6">
-              {bookingHistory.map((p) => {
-                const time = `${p.start_time} - ${p.end_time}`;
+              {confirm?.map((c) => {
+                const time = `${c.post.start_time} - ${c.post.end_time}`;
                 return (
-                  <div key={p.id} className="mb-3">
+                  <div key={c.id} className="mb-3">
                     <DetailBook
-                      sym={p.doctor?.department}
+                      sym={c.post?.doctor?.department}
                       date={time}
-                      doctor={p.doctor?.username}
-                      status={p.confirms?.[0]?.confirm || false}
+                      doctor={c.post?.doctor?.username}
+                      status={c.confirms?.confirm}
+                      id={c.id}
                     />
                   </div>
                 );
@@ -111,4 +114,4 @@ const ListBooked = () => {
   );
 };
 
-export default ListBooked;
+export default ListBookPatient;

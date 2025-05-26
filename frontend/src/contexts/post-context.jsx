@@ -21,25 +21,26 @@ export const PostProvider = ({ children }) => {
     symptoms: "",
   });
 
-  useEffect(() => {
+  const getPost = async () => {
     setLoading(true);
-    const getPost = async () => {
-      try {
-        const response =
+    try {
+      const response =
           user?.[0]?.role === "DOCTOR"
-            ? await getPostDoctorSer()
-            : await getAllPost();
-        if (response.success) {
-          setPost(response?.data?.data);
-        }
-      } catch (error) {
-        setError(error.response?.error);
-      } finally {
-        setLoading(false);
+              ? await getPostDoctorSer()
+              : await getAllPost();
+      if (response.success) {
+        setPost(response?.data?.data);
       }
-    };
+    } catch (error) {
+      setError(error.response?.error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     getPost();
-  }, []);
+  }, [user]);
 
   const createPost = async ({ start_time, end_time, post_date }) => {
     try {
@@ -47,7 +48,7 @@ export const PostProvider = ({ children }) => {
       const response = await newPost({ start_time, end_time, post_date });
       if (response.success) {
         const allPosts = await getAllPost();
-        setPost(allPosts?.data?.data);
+        setPost((prev) => [...prev, allPosts.data.data]);
       }
     } catch (error) {
       setPost(null);
@@ -82,6 +83,7 @@ export const PostProvider = ({ children }) => {
         deletePostUser,
         filters,
         setFilters,
+        getPost,
       }}
     >
       {children}

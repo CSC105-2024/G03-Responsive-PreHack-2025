@@ -3,7 +3,7 @@ import { DetailBook } from "@/components/card";
 import { usePost } from "@/contexts/post-context.jsx";
 import { TableDoctor } from "@/components/table";
 
-const ListBook = () => {
+const ListBookDoctor = () => {
   const { post, deletePostUser } = usePost();
   console.log(post);
   return (
@@ -13,4 +13,4 @@ const ListBook = () => {
   );
 };
 
-export default ListBook;
+export default ListBookDoctor;

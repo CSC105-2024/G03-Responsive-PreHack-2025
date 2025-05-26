@@ -19,7 +19,6 @@ export const AuthProvider = ({ children }) => {
             const response = await fetch();
             if (response.success) {
                 setUser(response?.data?.data);
-                setLoading(false);
             }
         } catch (error) {
             if (error.response?.status === 401) {
@@ -31,7 +30,7 @@ export const AuthProvider = ({ children }) => {
                     setUser(retryFetch?.data?.data);
                 }
             }
-            setError(error.response.error);
+            setError(error?.response?.error);
         } 
     }
     
