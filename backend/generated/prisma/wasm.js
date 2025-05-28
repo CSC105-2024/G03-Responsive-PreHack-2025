@@ -114,6 +114,9 @@ Prisma.NullTypes = {
  */
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -146,6 +149,19 @@ exports.Prisma.ConfirmScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.UsersOrderByRelevanceFieldEnum = {
+  username: 'username',
+  surname: 'surname',
+  department: 'department',
+  email: 'email',
+  password: 'password'
+};
+
+exports.Prisma.PostsOrderByRelevanceFieldEnum = {
+  start_time: 'start_time',
+  end_time: 'end_time'
 };
 exports.Roles = exports.$Enums.Roles = {
   DOCTOR: 'DOCTOR',

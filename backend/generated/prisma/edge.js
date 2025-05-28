@@ -86,6 +86,9 @@ Prisma.NullTypes = {
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -118,6 +121,19 @@ exports.Prisma.ConfirmScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.UsersOrderByRelevanceFieldEnum = {
+  username: 'username',
+  surname: 'surname',
+  department: 'department',
+  email: 'email',
+  password: 'password'
+};
+
+exports.Prisma.PostsOrderByRelevanceFieldEnum = {
+  start_time: 'start_time',
+  end_time: 'end_time'
 };
 exports.Roles = exports.$Enums.Roles = {
   DOCTOR: 'DOCTOR',
@@ -167,7 +183,7 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "sqlite",
+  "activeProvider": "mysql",
   "inlineDatasources": {
     "db": {
       "url": {
@@ -176,8 +192,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Roles {\n  DOCTOR\n  PATIENT\n}\n\nmodel Users {\n  id         Int      @id @default(autoincrement())\n  username   String\n  surname    String\n  department String\n  email      String   @unique\n  password   String\n  created_at DateTime @default(now())\n  role       Roles\n\n  posts    Posts[]   @relation(\"DoctorPosts\")\n  confirms Confirm[]\n}\n\nmodel Posts {\n  id         Int      @id @default(autoincrement())\n  start_time String\n  end_time   String\n  post_date  DateTime\n  created_at DateTime @default(now())\n\n  doctorId Int\n  doctor   Users @relation(\"DoctorPosts\", fields: [doctorId], references: [id])\n\n  confirms Confirm[]\n}\n\nmodel Confirm {\n  userId  Int\n  postId  Int\n  confirm Boolean @default(false)\n\n  user Users @relation(fields: [userId], references: [id])\n  post Posts @relation(fields: [postId], references: [id])\n\n  @@id([userId, postId])\n}\n",
-  "inlineSchemaHash": "e01a7eacec5f49185dc7449b5d4cb670a2c53f35fbd2b0823579113d66030675",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider          = \"mysql\"\n  url               = env(\"DATABASE_URL\")\n  shadowDatabaseUrl = env(\"SHADOW_DATABASE_URL\")\n}\n\nenum Roles {\n  DOCTOR\n  PATIENT\n}\n\nmodel Users {\n  id         Int      @id @default(autoincrement())\n  username   String\n  surname    String\n  department String\n  email      String   @unique\n  password   String\n  created_at DateTime @default(now())\n  role       Roles\n\n  posts    Posts[]   @relation(\"DoctorPosts\")\n  confirms Confirm[]\n}\n\nmodel Posts {\n  id         Int      @id @default(autoincrement())\n  start_time String\n  end_time   String\n  post_date  DateTime\n  created_at DateTime @default(now())\n\n  doctorId Int\n  doctor   Users @relation(\"DoctorPosts\", fields: [doctorId], references: [id])\n\n  confirms Confirm[]\n}\n\nmodel Confirm {\n  userId  Int\n  postId  Int\n  confirm Boolean @default(false)\n\n  user Users @relation(fields: [userId], references: [id])\n  post Posts @relation(fields: [postId], references: [id])\n\n  @@id([userId, postId])\n}\n",
+  "inlineSchemaHash": "eb4ec98de3256520e25ef89994bf212c51f725b4493870e569d89417087b6f1a",
   "copyEngine": true
 }
 config.dirname = '/'
